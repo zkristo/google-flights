@@ -1,0 +1,662 @@
+[
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "kgmid": "/m/06fk0sy",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDZmazBzeXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Paris",
+    "country": "France",
+    "kgmid": "/m/07v0v6k",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDd2MHY2a3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "kgmid": "/m/0ydlx33",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHlkbHgzM3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Frankfurt",
+    "country": "Germany",
+    "kgmid": "/m/03xw45n",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDN4dzQ1bnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Madrid",
+    "country": "Spain",
+    "kgmid": "/m/011lw_0f",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDExbHdfMGZyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Barcelona",
+    "country": "Spain",
+    "kgmid": "/m/0fx2t9k",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGZ4MnQ5a3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Rome",
+    "country": "Italy",
+    "kgmid": "/m/0m_rkg6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1fcmtnNnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Istanbul",
+    "country": "Turkey",
+    "kgmid": "/m/0p8h_z",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMHA4aF96cgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Munich",
+    "country": "Germany",
+    "kgmid": "/m/0lnqht5",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGxucWh0NXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Zurich",
+    "country": "Switzerland",
+    "kgmid": "/m/010q4j_z",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEwcTRqX3pyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Vienna",
+    "country": "Austria",
+    "kgmid": "/m/0dnb7lj",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGRuYjdsanIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Dublin",
+    "country": "Ireland",
+    "kgmid": "/m/0m6pvcf",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG02cHZjZnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "kgmid": "/m/0nl8l_q",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG5sOGxfcXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Oslo",
+    "country": "Norway",
+    "kgmid": "/m/01vsnjp",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDF2c25qcHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Stockholm",
+    "country": "Sweden",
+    "kgmid": "/m/012pr10k",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEycHIxMGtyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Lisbon",
+    "country": "Portugal",
+    "kgmid": "/m/0xyqky",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMHh5cWt5cgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Athens",
+    "country": "Greece",
+    "kgmid": "/m/05c4p9q",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDVjNHA5cXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Brussels",
+    "country": "Belgium",
+    "kgmid": "/m/010bt62s",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEwYnQ2MnNyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Warsaw",
+    "country": "Poland",
+    "kgmid": "/m/0y9r4bn",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHk5cjRibnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Budapest",
+    "country": "Hungary",
+    "kgmid": "/m/012cy9f1",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEyY3k5ZjFyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Prague",
+    "country": "Czech Republic",
+    "kgmid": "/m/06nqdw4",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDZucWR3NHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bucharest",
+    "country": "Romania",
+    "kgmid": "/m/0ckk7hb",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGNrazdoYnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Milan",
+    "country": "Italy",
+    "kgmid": "/m/0frw8cy",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGZydzhjeXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Helsinki",
+    "country": "Finland",
+    "kgmid": "/m/0l76f2m",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGw3NmYybXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Reykjavik",
+    "country": "Iceland",
+    "kgmid": "/m/0j64sll",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGo2NHNsbHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Luxembourg",
+    "country": "Luxembourg",
+    "kgmid": "/m/0l9hhv0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGw5aGh2MHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Sofia",
+    "country": "Bulgaria",
+    "kgmid": "/m/018637n",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDE4NjM3bnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Belgrade",
+    "country": "Serbia",
+    "kgmid": "/m/0ckhb_c",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGNraGJfY3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Zagreb",
+    "country": "Croatia",
+    "kgmid": "/m/0zhlnw1",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHpobG53MXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "kgmid": "/m/0ckw47s",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGNrdzQ3c3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bratislava",
+    "country": "Slovakia",
+    "kgmid": "/m/0ckwpwy",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGNrd3B3eXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Tallinn",
+    "country": "Estonia",
+    "kgmid": "/m/0sq55wr",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHNxNTV3cnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Riga",
+    "country": "Latvia",
+    "kgmid": "/m/0ns73nj",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG5zNzNuanIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Vilnius",
+    "country": "Lithuania",
+    "kgmid": "/m/011214x5",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDExMjE0eDVyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Valletta",
+    "country": "Malta",
+    "kgmid": "/m/0mynqcz",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG15bnFjenIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Nicosia",
+    "country": "Cyprus",
+    "kgmid": "/m/0105nrt",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDEwNW5ydHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Tirana",
+    "country": "Albania",
+    "kgmid": "/m/016l37m",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDE2bDM3bXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Skopje",
+    "country": "North Macedonia",
+    "kgmid": "/m/0dm6x_d",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGRtNnhfZHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Podgorica",
+    "country": "Montenegro",
+    "kgmid": "/m/09k0_p",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMDlrMF9wcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Sarajevo",
+    "country": "Bosnia and Herzegovina",
+    "kgmid": "/m/0cqfcc6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGNxZmNjNnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Chisinau",
+    "country": "Moldova",
+    "kgmid": "/m/0h3s4",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMGgzczRyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Kyiv",
+    "country": "Ukraine",
+    "kgmid": "/m/02h6k",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMDJoNmtyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Minsk",
+    "country": "Belarus",
+    "kgmid": "/m/0mrj2pm",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1yajJwbXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Moscow",
+    "country": "Russia",
+    "kgmid": "/m/0sjs_1q",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHNqc18xcXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Saint Petersburg",
+    "country": "Russia",
+    "kgmid": "/m/0c9xq",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMGM5eHFyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Ankara",
+    "country": "Turkey",
+    "kgmid": "/m/01dcr_j",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDFkY3JfanIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Antalya",
+    "country": "Turkey",
+    "kgmid": "/m/03qmtj0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDNxbXRqMHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Geneva",
+    "country": "Switzerland",
+    "kgmid": "/m/06l16h2",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDZsMTZoMnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Nice",
+    "country": "France",
+    "kgmid": "/m/0ffzgtl",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGZmemd0bHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Lyon",
+    "country": "France",
+    "kgmid": "/m/0tkjb3q",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHRramIzcXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Marseille",
+    "country": "France",
+    "kgmid": "/m/0lmgvy0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGxtZ3Z5MHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Toulouse",
+    "country": "France",
+    "kgmid": "/m/0__181c",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMF9fMTgxY3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Palma de Mallorca",
+    "country": "Spain",
+    "kgmid": "/m/0d0v5",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMGQwdjVyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Malaga",
+    "country": "Spain",
+    "kgmid": "/m/01y5t6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMDF5NXQ2cgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Valencia",
+    "country": "Spain",
+    "kgmid": "/m/0mkd57h",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1rZDU3aHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Seville",
+    "country": "Spain",
+    "kgmid": "/m/0n218t4",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG4yMTh0NHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bilbao",
+    "country": "Spain",
+    "kgmid": "/m/0mf6rq9",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1mNnJxOXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Porto",
+    "country": "Portugal",
+    "kgmid": "/m/026kb12",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDI2a2IxMnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Faro",
+    "country": "Portugal",
+    "kgmid": "/m/02qpjg2",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDJxcGpnMnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Naples",
+    "country": "Italy",
+    "kgmid": "/m/012mn3wh",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEybW4zd2hyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Venice",
+    "country": "Italy",
+    "kgmid": "/m/0tmyhp",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMHRteWhwcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Turin",
+    "country": "Italy",
+    "kgmid": "/m/0qh8_gy",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHFoOF9neXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Catania",
+    "country": "Italy",
+    "kgmid": "/m/01srnsm",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDFzcm5zbXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Berlin",
+    "country": "Germany",
+    "kgmid": "/m/03qn7ry",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDNxbjdyeXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Hamburg",
+    "country": "Germany",
+    "kgmid": "/m/0mb9w13",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1iOXcxM3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Düsseldorf",
+    "country": "Germany",
+    "kgmid": "/m/06wy7c",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMDZ3eTdjcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Cologne",
+    "country": "Germany",
+    "kgmid": "/m/0gj9jdw",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGdqOWpkd3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Stuttgart",
+    "country": "Germany",
+    "kgmid": "/m/0sk48gg",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHNrNDhnZ3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Manchester",
+    "country": "United Kingdom",
+    "kgmid": "/m/0v_qh",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMHZfcWhyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Birmingham",
+    "country": "United Kingdom",
+    "kgmid": "/m/0gx3fq",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMGd4M2ZxcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Edinburgh",
+    "country": "United Kingdom",
+    "kgmid": "/m/0zq8dp_",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHpxOGRwX3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Glasgow",
+    "country": "United Kingdom",
+    "kgmid": "/m/0m940lk",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG05NDBsa3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bristol",
+    "country": "United Kingdom",
+    "kgmid": "/m/0xc7t0f",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHhjN3QwZnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Thessaloniki",
+    "country": "Greece",
+    "kgmid": "/m/0v2t2hv",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHYydDJodnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Heraklion",
+    "country": "Greece",
+    "kgmid": "/m/0y91859",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHk5MTg1OXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Rhodes",
+    "country": "Greece",
+    "kgmid": "/m/0qj7_v6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHFqN192NnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Krakow",
+    "country": "Poland",
+    "kgmid": "/m/0n6bl3s",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG42Ymwzc3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Gdansk",
+    "country": "Poland",
+    "kgmid": "/m/0f18kzk",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGYxOGt6a3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Wroclaw",
+    "country": "Poland",
+    "kgmid": "/m/0mhnz0s",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG1obnowc3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Split",
+    "country": "Croatia",
+    "kgmid": "/m/0vnl7p8",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHZubDdwOHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Dubrovnik",
+    "country": "Croatia",
+    "kgmid": "/m/0fr9chs",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGZyOWNoc3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "kgmid": "/m/019bhry",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDE5YmhyeXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bergen",
+    "country": "Norway",
+    "kgmid": "/m/04d_nl",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMDRkX25scgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Stavanger",
+    "country": "Norway",
+    "kgmid": "/m/0wvknp",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMHd2a25wcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Aarhus",
+    "country": "Denmark",
+    "kgmid": "/m/010t66wy",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEwdDY2d3lyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Billund",
+    "country": "Denmark",
+    "kgmid": "/m/0l1wj6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMGwxd2o2cgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Basel",
+    "country": "Switzerland",
+    "kgmid": "/m/03p1lh9",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDNwMWxoOXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Salzburg",
+    "country": "Austria",
+    "kgmid": "/m/0lmyl_c",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGxteWxfY3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Innsbruck",
+    "country": "Austria",
+    "kgmid": "/m/0zl3bdn",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHpsM2JkbnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Shannon",
+    "country": "Ireland",
+    "kgmid": "/m/0lvs7d0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGx2czdkMHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Cork",
+    "country": "Ireland",
+    "kgmid": "/m/02z2c70",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDJ6MmM3MHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Tenerife",
+    "country": "Spain",
+    "kgmid": "/m/01cg5lw",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDFjZzVsd3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Lanzarote",
+    "country": "Spain",
+    "kgmid": "/m/011k_tl6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDExa190bDZyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Gran Canaria",
+    "country": "Spain",
+    "kgmid": "/m/0d0vt",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxooEgoyMDI2LTA0LTMwagwIAhIIL20vMGQwdnRyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Ibiza",
+    "country": "Spain",
+    "kgmid": "/m/0ylhfl0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHlsaGZsMHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bologna",
+    "country": "Italy",
+    "kgmid": "/m/0gsczf",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMGdzY3pmcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Palermo",
+    "country": "Italy",
+    "kgmid": "/m/012t34s2",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxorEgoyMDI2LTA0LTMwagwIAhILL20vMDEydDM0czJyDAgEEggvbS8wNXF0akABSAFwAYIBCwj___________8BmAECsgEKEggvbS8wNXF0ag&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bari",
+    "country": "Italy",
+    "kgmid": "/m/0m32tg7",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG0zMnRnN3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Hanover",
+    "country": "Germany",
+    "kgmid": "/m/09mv9pk",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDltdjlwa3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Leipzig",
+    "country": "Germany",
+    "kgmid": "/m/0qgdfcq",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHFnZGZjcXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Nuremberg",
+    "country": "Germany",
+    "kgmid": "/m/0g4b5m",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxopEgoyMDI2LTA0LTMwagwIAhIJL20vMGc0YjVtcgwIBBIIL20vMDVxdGpAAUgBcAGCAQsI____________AZgBArIBChIIL20vMDVxdGo&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bremen",
+    "country": "Germany",
+    "kgmid": "/m/0n2z35k",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMG4yejM1a3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Larnaca",
+    "country": "Cyprus",
+    "kgmid": "/m/0wj5gbm",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMHdqNWdibXIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Paphos",
+    "country": "Cyprus",
+    "kgmid": "/m/0ll3_xz",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGxsM194enIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Tbilisi",
+    "country": "Georgia",
+    "kgmid": "/m/04n42xs",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDRuNDJ4c3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Yerevan",
+    "country": "Armenia",
+    "kgmid": "/m/07nw1pc",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDdudzFwY3IMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Baku",
+    "country": "Azerbaijan",
+    "kgmid": "/m/0kyq1m6",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGt5cTFtNnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Izmir",
+    "country": "Turkey",
+    "kgmid": "/m/02plxq0",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDJwbHhxMHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Bodrum",
+    "country": "Turkey",
+    "kgmid": "/m/03fq1r4",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMDNmcTFyNHIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  },
+  {
+    "city": "Dalaman",
+    "country": "Turkey",
+    "kgmid": "/m/0dszz0b",
+    "url": "https://www.google.com/travel/explore?tfs=CBwQAxoqEgoyMDI2LTA0LTMwagwIAhIKL20vMGRzenowYnIMCAQSCC9tLzA1cXRqQAFIAXABggELCP___________wGYAQKyAQoSCC9tLzA1cXRq&tfu=GgA&tcfs=EhEKCC9tLzA1cXRqEgVQYXJpc1IEYAJ4AQ"
+  }
+]

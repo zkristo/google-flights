@@ -1,0 +1,772 @@
+[
+  {
+    "name": "London",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "LON",
+    "kgmid": "/m/06fk0sy"
+  },
+  {
+    "name": "Paris",
+    "country": "France",
+    "country_code": "FR",
+    "iatacode": "PAR",
+    "kgmid": "/m/07v0v6k"
+  },
+  {
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "country_code": "NL",
+    "iatacode": "AMS",
+    "kgmid": "/m/0ydlx33"
+  },
+  {
+    "name": "Frankfurt",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "FRA",
+    "kgmid": "/m/03xw45n"
+  },
+  {
+    "name": "Madrid",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "MAD",
+    "kgmid": "/m/011lw_0f"
+  },
+  {
+    "name": "Barcelona",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "BCN",
+    "kgmid": "/m/0fx2t9k"
+  },
+  {
+    "name": "Rome",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "FCO",
+    "kgmid": "/m/0m_rkg6"
+  },
+  {
+    "name": "Istanbul",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "IST",
+    "kgmid": "/m/0p8h_z"
+  },
+  {
+    "name": "Munich",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "MUC",
+    "kgmid": "/m/0lnqht5"
+  },
+  {
+    "name": "Zurich",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "iatacode": "ZRH",
+    "kgmid": "/m/010q4j_z"
+  },
+  {
+    "name": "Vienna",
+    "country": "Austria",
+    "country_code": "AT",
+    "iatacode": "VIE",
+    "kgmid": "/m/0dnb7lj"
+  },
+  {
+    "name": "Dublin",
+    "country": "Ireland",
+    "country_code": "IE",
+    "iatacode": "DUB",
+    "kgmid": "/m/0m6pvcf"
+  },
+  {
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "country_code": "DK",
+    "iatacode": "CPH",
+    "kgmid": "/m/0nl8l_q"
+  },
+  {
+    "name": "Oslo",
+    "country": "Norway",
+    "country_code": "NO",
+    "iatacode": "OSL",
+    "kgmid": "/m/01vsnjp"
+  },
+  {
+    "name": "Stockholm",
+    "country": "Sweden",
+    "country_code": "SE",
+    "iatacode": "ARN",
+    "kgmid": "/m/012pr10k"
+  },
+  {
+    "name": "Lisbon",
+    "country": "Portugal",
+    "country_code": "PT",
+    "iatacode": "LIS",
+    "kgmid": "/m/0xyqky"
+  },
+  {
+    "name": "Athens",
+    "country": "Greece",
+    "country_code": "GR",
+    "iatacode": "ATH",
+    "kgmid": "/m/05c4p9q"
+  },
+  {
+    "name": "Brussels",
+    "country": "Belgium",
+    "country_code": "BE",
+    "iatacode": "BRU",
+    "kgmid": "/m/010bt62s"
+  },
+  {
+    "name": "Warsaw",
+    "country": "Poland",
+    "country_code": "PL",
+    "iatacode": "WAW",
+    "kgmid": "/m/0y9r4bn"
+  },
+  {
+    "name": "Budapest",
+    "country": "Hungary",
+    "country_code": "HU",
+    "iatacode": "BUD",
+    "kgmid": "/m/012cy9f1"
+  },
+  {
+    "name": "Prague",
+    "country": "Czech Republic",
+    "country_code": "CZ",
+    "iatacode": "PRG",
+    "kgmid": "/m/06nqdw4"
+  },
+  {
+    "name": "Bucharest",
+    "country": "Romania",
+    "country_code": "RO",
+    "iatacode": "OTP",
+    "kgmid": "/m/0ckk7hb"
+  },
+  {
+    "name": "Milan",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "MXP",
+    "kgmid": "/m/0frw8cy"
+  },
+  {
+    "name": "Helsinki",
+    "country": "Finland",
+    "country_code": "FI",
+    "iatacode": "HEL",
+    "kgmid": "/m/0l76f2m"
+  },
+  {
+    "name": "Reykjavik",
+    "country": "Iceland",
+    "country_code": "IS",
+    "iatacode": "KEF",
+    "kgmid": "/m/0j64sll"
+  },
+  {
+    "name": "Luxembourg",
+    "country": "Luxembourg",
+    "country_code": "LU",
+    "iatacode": "LUX",
+    "kgmid": "/m/0l9hhv0"
+  },
+  {
+    "name": "Sofia",
+    "country": "Bulgaria",
+    "country_code": "BG",
+    "iatacode": "SOF",
+    "kgmid": "/m/018637n"
+  },
+  {
+    "name": "Belgrade",
+    "country": "Serbia",
+    "country_code": "RS",
+    "iatacode": "BEG",
+    "kgmid": "/m/0ckhb_c"
+  },
+  {
+    "name": "Zagreb",
+    "country": "Croatia",
+    "country_code": "HR",
+    "iatacode": "ZAG",
+    "kgmid": "/m/0zhlnw1"
+  },
+  {
+    "name": "Ljubljana",
+    "country": "Slovenia",
+    "country_code": "SI",
+    "iatacode": "LJU",
+    "kgmid": "/m/0ckw47s"
+  },
+  {
+    "name": "Bratislava",
+    "country": "Slovakia",
+    "country_code": "SK",
+    "iatacode": "BTS",
+    "kgmid": "/m/0ckwpwy"
+  },
+  {
+    "name": "Tallinn",
+    "country": "Estonia",
+    "country_code": "EE",
+    "iatacode": "TLL",
+    "kgmid": "/m/0sq55wr"
+  },
+  {
+    "name": "Riga",
+    "country": "Latvia",
+    "country_code": "LV",
+    "iatacode": "RIX",
+    "kgmid": "/m/0ns73nj"
+  },
+  {
+    "name": "Vilnius",
+    "country": "Lithuania",
+    "country_code": "LT",
+    "iatacode": "VNO",
+    "kgmid": "/m/011214x5"
+  },
+  {
+    "name": "Valletta",
+    "country": "Malta",
+    "country_code": "MT",
+    "iatacode": "MLA",
+    "kgmid": "/m/0mynqcz"
+  },
+  {
+    "name": "Nicosia",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "iatacode": "LCA",
+    "kgmid": "/m/0105nrt"
+  },
+  {
+    "name": "Tirana",
+    "country": "Albania",
+    "country_code": "AL",
+    "iatacode": "TIA",
+    "kgmid": "/m/016l37m"
+  },
+  {
+    "name": "Skopje",
+    "country": "North Macedonia",
+    "country_code": "MK",
+    "iatacode": "SKP",
+    "kgmid": "/m/0dm6x_d"
+  },
+  {
+    "name": "Podgorica",
+    "country": "Montenegro",
+    "country_code": "ME",
+    "iatacode": "TGD",
+    "kgmid": "/m/09k0_p"
+  },
+  {
+    "name": "Sarajevo",
+    "country": "Bosnia and Herzegovina",
+    "country_code": "BA",
+    "iatacode": "SJJ",
+    "kgmid": "/m/0cqfcc6"
+  },
+  {
+    "name": "Chisinau",
+    "country": "Moldova",
+    "country_code": "MD",
+    "iatacode": "KIV",
+    "kgmid": "/m/0h3s4"
+  },
+  {
+    "name": "Kyiv",
+    "country": "Ukraine",
+    "country_code": "UA",
+    "iatacode": "KBP",
+    "kgmid": "/m/02h6k"
+  },
+  {
+    "name": "Minsk",
+    "country": "Belarus",
+    "country_code": "BY",
+    "iatacode": "MSQ",
+    "kgmid": "/m/0mrj2pm"
+  },
+  {
+    "name": "Moscow",
+    "country": "Russia",
+    "country_code": "RU",
+    "iatacode": "SVO",
+    "kgmid": "/m/0sjs_1q"
+  },
+  {
+    "name": "Saint Petersburg",
+    "country": "Russia",
+    "country_code": "RU",
+    "iatacode": "LED",
+    "kgmid": "/m/0c9xq"
+  },
+  {
+    "name": "Ankara",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "ESB",
+    "kgmid": "/m/01dcr_j"
+  },
+  {
+    "name": "Antalya",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "AYT",
+    "kgmid": "/m/03qmtj0"
+  },
+  {
+    "name": "Geneva",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "iatacode": "GVA",
+    "kgmid": "/m/06l16h2"
+  },
+  {
+    "name": "Nice",
+    "country": "France",
+    "country_code": "FR",
+    "iatacode": "NCE",
+    "kgmid": "/m/0ffzgtl"
+  },
+  {
+    "name": "Lyon",
+    "country": "France",
+    "country_code": "FR",
+    "iatacode": "LYS",
+    "kgmid": "/m/0tkjb3q"
+  },
+  {
+    "name": "Marseille",
+    "country": "France",
+    "country_code": "FR",
+    "iatacode": "MRS",
+    "kgmid": "/m/0lmgvy0"
+  },
+  {
+    "name": "Toulouse",
+    "country": "France",
+    "country_code": "FR",
+    "iatacode": "TLS",
+    "kgmid": "/m/0__181c"
+  },
+  {
+    "name": "Palma de Mallorca",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "PMI",
+    "kgmid": "/m/0d0v5"
+  },
+  {
+    "name": "Malaga",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "AGP",
+    "kgmid": "/m/01y5t6"
+  },
+  {
+    "name": "Valencia",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "VLC",
+    "kgmid": "/m/0mkd57h"
+  },
+  {
+    "name": "Seville",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "SVQ",
+    "kgmid": "/m/0n218t4"
+  },
+  {
+    "name": "Bilbao",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "BIO",
+    "kgmid": "/m/0mf6rq9"
+  },
+  {
+    "name": "Porto",
+    "country": "Portugal",
+    "country_code": "PT",
+    "iatacode": "OPO",
+    "kgmid": "/m/026kb12"
+  },
+  {
+    "name": "Faro",
+    "country": "Portugal",
+    "country_code": "PT",
+    "iatacode": "FAO",
+    "kgmid": "/m/02qpjg2"
+  },
+  {
+    "name": "Naples",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "NAP",
+    "kgmid": "/m/012mn3wh"
+  },
+  {
+    "name": "Venice",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "VCE",
+    "kgmid": "/m/0tmyhp"
+  },
+  {
+    "name": "Turin",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "TRN",
+    "kgmid": "/m/0qh8_gy"
+  },
+  {
+    "name": "Catania",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "CTA",
+    "kgmid": "/m/01srnsm"
+  },
+  {
+    "name": "Berlin",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "BER",
+    "kgmid": "/m/03qn7ry"
+  },
+  {
+    "name": "Hamburg",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "HAM",
+    "kgmid": "/m/0mb9w13"
+  },
+  {
+    "name": "Düsseldorf",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "DUS",
+    "kgmid": "/m/06wy7c"
+  },
+  {
+    "name": "Cologne",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "CGN",
+    "kgmid": "/m/0gj9jdw"
+  },
+  {
+    "name": "Stuttgart",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "STR",
+    "kgmid": "/m/0sk48gg"
+  },
+  {
+    "name": "Manchester",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "MAN",
+    "kgmid": "/m/0v_qh"
+  },
+  {
+    "name": "Birmingham",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "BHX",
+    "kgmid": "/m/0gx3fq"
+  },
+  {
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "EDI",
+    "kgmid": "/m/0zq8dp_"
+  },
+  {
+    "name": "Glasgow",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "GLA",
+    "kgmid": "/m/0m940lk"
+  },
+  {
+    "name": "Bristol",
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "iatacode": "BRS",
+    "kgmid": "/m/0xc7t0f"
+  },
+  {
+    "name": "Thessaloniki",
+    "country": "Greece",
+    "country_code": "GR",
+    "iatacode": "SKG",
+    "kgmid": "/m/0v2t2hv"
+  },
+  {
+    "name": "Heraklion",
+    "country": "Greece",
+    "country_code": "GR",
+    "iatacode": "HER",
+    "kgmid": "/m/0y91859"
+  },
+  {
+    "name": "Rhodes",
+    "country": "Greece",
+    "country_code": "GR",
+    "iatacode": "RHO",
+    "kgmid": "/m/0qj7_v6"
+  },
+  {
+    "name": "Krakow",
+    "country": "Poland",
+    "country_code": "PL",
+    "iatacode": "KRK",
+    "kgmid": "/m/0n6bl3s"
+  },
+  {
+    "name": "Gdansk",
+    "country": "Poland",
+    "country_code": "PL",
+    "iatacode": "GDN",
+    "kgmid": "/m/0f18kzk"
+  },
+  {
+    "name": "Wroclaw",
+    "country": "Poland",
+    "country_code": "PL",
+    "iatacode": "WRO",
+    "kgmid": "/m/0mhnz0s"
+  },
+  {
+    "name": "Split",
+    "country": "Croatia",
+    "country_code": "HR",
+    "iatacode": "SPU",
+    "kgmid": "/m/0vnl7p8"
+  },
+  {
+    "name": "Dubrovnik",
+    "country": "Croatia",
+    "country_code": "HR",
+    "iatacode": "DBV",
+    "kgmid": "/m/0fr9chs"
+  },
+  {
+    "name": "Gothenburg",
+    "country": "Sweden",
+    "country_code": "SE",
+    "iatacode": "GOT",
+    "kgmid": "/m/019bhry"
+  },
+  {
+    "name": "Bergen",
+    "country": "Norway",
+    "country_code": "NO",
+    "iatacode": "BGO",
+    "kgmid": "/m/04d_nl"
+  },
+  {
+    "name": "Stavanger",
+    "country": "Norway",
+    "country_code": "NO",
+    "iatacode": "SVG",
+    "kgmid": "/m/0wvknp"
+  },
+  {
+    "name": "Aarhus",
+    "country": "Denmark",
+    "country_code": "DK",
+    "iatacode": "AAR",
+    "kgmid": "/m/010t66wy"
+  },
+  {
+    "name": "Billund",
+    "country": "Denmark",
+    "country_code": "DK",
+    "iatacode": "BLL",
+    "kgmid": "/m/0l1wj6"
+  },
+  {
+    "name": "Basel",
+    "country": "Switzerland",
+    "country_code": "CH",
+    "iatacode": "BSL",
+    "kgmid": "/m/03p1lh9"
+  },
+  {
+    "name": "Salzburg",
+    "country": "Austria",
+    "country_code": "AT",
+    "iatacode": "SZG",
+    "kgmid": "/m/0lmyl_c"
+  },
+  {
+    "name": "Innsbruck",
+    "country": "Austria",
+    "country_code": "AT",
+    "iatacode": "INN",
+    "kgmid": "/m/0zl3bdn"
+  },
+  {
+    "name": "Shannon",
+    "country": "Ireland",
+    "country_code": "IE",
+    "iatacode": "SNN",
+    "kgmid": "/m/0lvs7d0"
+  },
+  {
+    "name": "Cork",
+    "country": "Ireland",
+    "country_code": "IE",
+    "iatacode": "ORK",
+    "kgmid": "/m/02z2c70"
+  },
+  {
+    "name": "Tenerife",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "TFS",
+    "kgmid": "/m/01cg5lw"
+  },
+  {
+    "name": "Lanzarote",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "ACE",
+    "kgmid": "/m/011k_tl6"
+  },
+  {
+    "name": "Gran Canaria",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "LPA",
+    "kgmid": "/m/0d0vt"
+  },
+  {
+    "name": "Ibiza",
+    "country": "Spain",
+    "country_code": "ES",
+    "iatacode": "IBZ",
+    "kgmid": "/m/0ylhfl0"
+  },
+  {
+    "name": "Bologna",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "BLQ",
+    "kgmid": "/m/0gsczf"
+  },
+  {
+    "name": "Palermo",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "PMO",
+    "kgmid": "/m/012t34s2"
+  },
+  {
+    "name": "Bari",
+    "country": "Italy",
+    "country_code": "IT",
+    "iatacode": "BRI",
+    "kgmid": "/m/0m32tg7"
+  },
+  {
+    "name": "Hanover",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "HAJ",
+    "kgmid": "/m/09mv9pk"
+  },
+  {
+    "name": "Leipzig",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "LEJ",
+    "kgmid": "/m/0qgdfcq"
+  },
+  {
+    "name": "Nuremberg",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "NUE",
+    "kgmid": "/m/0g4b5m"
+  },
+  {
+    "name": "Bremen",
+    "country": "Germany",
+    "country_code": "DE",
+    "iatacode": "BRE",
+    "kgmid": "/m/0n2z35k"
+  },
+  {
+    "name": "Larnaca",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "iatacode": "LCA",
+    "kgmid": "/m/0wj5gbm"
+  },
+  {
+    "name": "Paphos",
+    "country": "Cyprus",
+    "country_code": "CY",
+    "iatacode": "PFO",
+    "kgmid": "/m/0ll3_xz"
+  },
+  {
+    "name": "Tbilisi",
+    "country": "Georgia",
+    "country_code": "GE",
+    "iatacode": "TBS",
+    "kgmid": "/m/04n42xs"
+  },
+  {
+    "name": "Yerevan",
+    "country": "Armenia",
+    "country_code": "AM",
+    "iatacode": "EVN",
+    "kgmid": "/m/07nw1pc"
+  },
+  {
+    "name": "Baku",
+    "country": "Azerbaijan",
+    "country_code": "AZ",
+    "iatacode": "GYD",
+    "kgmid": "/m/0kyq1m6"
+  },
+  {
+    "name": "Izmir",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "ADB",
+    "kgmid": "/m/02plxq0"
+  },
+  {
+    "name": "Bodrum",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "BJV",
+    "kgmid": "/m/03fq1r4"
+  },
+  {
+    "name": "Dalaman",
+    "country": "Turkey",
+    "country_code": "TR",
+    "iatacode": "DLM",
+    "kgmid": "/m/0dszz0b"
+  }
+]
