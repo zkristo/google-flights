@@ -58,10 +58,13 @@ def itinerary_to_flight(it: dict) -> Flight:
     segs = leg.get("segments") or []
     first, last = (segs[0], segs[-1]) if segs else ({}, {})
     carriers: list[str] = []
+    codes: list[str] = []
     for s in segs:
         name = s.get("carrierName") or s.get("carrier") or "?"
         if name not in carriers:
             carriers.append(name)
+        if s.get("carrier") and s["carrier"] not in codes:
+            codes.append(s["carrier"])
     return Flight(
         id=str(it.get("id", "")),
         origin=first.get("from") or leg["from"],
@@ -76,6 +79,7 @@ def itinerary_to_flight(it: dict) -> Flight:
         stops=int(leg.get("stops", max(len(segs) - 1, 0))),
         booking_url=it.get("bookingUrl", ""),
         route=tuple(leg.get("route") or ()),
+        carrier_codes=tuple(codes),
     )
 
 
@@ -139,8 +143,14 @@ class KiwiClient:
         max_stops: int | None = None,
         cabin_bag: bool = False,
         checked_bag: bool = False,
+        price_to: int | None = None,
+        one_for_city: bool = False,
     ) -> list[Flight]:
-        """One-way flights fly_from → fly_to departing on ``day`` ± ``flex_days``, cheapest first."""
+        """One-way flights fly_from → fly_to departing on ``day`` ± ``flex_days``, cheapest first.
+
+        ``fly_from``/``fly_to`` may also be a region such as "Europe" (with ``price_to`` and
+        ``one_for_city`` this answers "where can I fly cheaply from ZAG that day?").
+        """
         args: dict[str, Any] = {
             "flyFrom": fly_from,
             "flyTo": fly_to,
@@ -156,6 +166,10 @@ class KiwiClient:
             args["adults_hand_bags"] = [1] * adults
         if checked_bag:
             args["adults_hold_bags"] = [1] * adults
+        if price_to is not None:
+            args["price_to"] = int(price_to)
+        if one_for_city:
+            args["one_for_city"] = True
 
         data = self.cache.get("kiwi", args, FLIGHT_TTL)
         if data is None:

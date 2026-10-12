@@ -74,6 +74,7 @@
       <label><input type="checkbox" name="direct" value="1" {% if form.direct %}checked{% endif %}> Non-stop only</label>
       <label><input type="checkbox" name="cabin_bag" value="1" {% if form.cabin_bag %}checked{% endif %}> Cabin bag</label>
       <label><input type="checkbox" name="checked_bag" value="1" {% if form.checked_bag %}checked{% endif %}> Checked bag</label>
+      <label><input type="checkbox" name="airline_direct" value="1" {% if form.airline_direct %}checked{% endif %}> Check Ryanair &amp; Wizz Air prices directly</label>
     </div>
     <details {% if not res %}open{% endif %}>
       <summary>Airports &amp; waiting rules</summary>
@@ -86,6 +87,7 @@
         <label>Max wait bus ⇄ flight (h) <input type="number" step="0.5" name="max_wait" value="{{ form.max_wait }}"></label>
         <label>Overnight wait penalty (€) <input type="number" step="1" name="overnight_cost" value="{{ form.overnight_cost }}"></label>
         <label>Value of waiting (€/h beyond 3h) <input type="number" step="0.5" name="wait_cost" value="{{ form.wait_cost }}"></label>
+        <label>Fly-first hops from ZAG under (€, 0 = off) <input type="number" step="5" name="hop_max" value="{{ form.hop_max }}"></label>
       </div>
     </details>
   </form>
@@ -108,7 +110,7 @@
       {% for t in res.trips %}
       <section class="trip">
         <div class="trip-head">
-          <div><span class="rank">#{{ loop.index }}</span><strong>{{ t.out.hub.code }} → {{ q.destination }} → {{ t.back.hub.code }}</strong>
+          <div><span class="rank">#{{ loop.index }}</span><strong>{{ t.out.hub.label }} → {{ q.destination }} → {{ t.back.hub.label }}</strong>
             <span class="wait"> · {{ fmt.day(t.out.flight.departure) }} – {{ fmt.day(t.back.flight.departure) }} · {{ t.nights }} night{{ "s" if t.nights != 1 else "" }}</span></div>
           <div class="total">{{ fmt.money(t.total) }}</div>
         </div>
@@ -120,8 +122,11 @@
               <div class="step {% if line.startswith('⏱') %}wait{% endif %}">{{ line }}</div>
             {% endfor %}
             <div class="links">
+              {% set sites = {'ryanair': 'Ryanair', 'wizz': 'Wizz Air', 'kiwi': 'Kiwi.com'} %}
               {% if leg.bus and leg.direction == 'out' %}<a href="{{ leg.bus.booking_url }}" target="_blank" rel="noopener">Bus on FlixBus ↗</a>{% endif %}
-              <a href="{{ leg.flight.booking_url }}" target="_blank" rel="noopener">Flight on Kiwi.com ↗</a>
+              {% if leg.hop and leg.direction == 'out' %}<a href="{{ leg.hop.booking_url }}" target="_blank" rel="noopener">Hop {{ leg.hop.origin }}→{{ leg.hop.destination }} on {{ sites[leg.hop.source] }} ↗</a>{% endif %}
+              <a href="{{ leg.flight.booking_url }}" target="_blank" rel="noopener">Flight on {{ sites[leg.flight.source] }} ↗</a>
+              {% if leg.hop and leg.direction == 'back' %}<a href="{{ leg.hop.booking_url }}" target="_blank" rel="noopener">Hop {{ leg.hop.origin }}→{{ leg.hop.destination }} on {{ sites[leg.hop.source] }} ↗</a>{% endif %}
               {% if leg.bus and leg.direction == 'back' %}<a href="{{ leg.bus.booking_url }}" target="_blank" rel="noopener">Bus on FlixBus ↗</a>{% endif %}
             </div>
           </div>
@@ -146,10 +151,11 @@
 
       <h2>Best leg per airport</h2>
       <div class="scroll"><table>
-        <tr><th>Airport</th><th>Outbound (bus + flight)</th><th>Return (flight + bus)</th></tr>
-        {% for h in form.hubs if h.code in res.best_out_by_hub or h.code in res.best_back_by_hub %}
-          {% set o = res.best_out_by_hub.get(h.code) %}{% set b = res.best_back_by_hub.get(h.code) %}
-          <tr><td>{{ h.code }} {{ h.name }}</td>
+        <tr><th>Airport</th><th>Outbound (getting there + flight)</th><th>Return (flight + getting home)</th></tr>
+        {% set labels = (res.best_out_by_hub.keys() | list) + (res.best_back_by_hub.keys() | list) %}
+        {% for label in labels | unique %}
+          {% set o = res.best_out_by_hub.get(label) %}{% set b = res.best_back_by_hub.get(label) %}{% set h = (o or b).hub %}
+          <tr><td>{{ h.code }} {{ h.name }}{% if h.via_flight %} <span class="wait">(fly there)</span>{% endif %}</td>
             <td>{% if o %}{{ fmt.money(o.total) }} · {{ fmt.day(o.flight.departure) }}{% else %}–{% endif %}</td>
             <td>{% if b %}{{ fmt.money(b.total) }} · {{ fmt.day(b.flight.departure) }}{% else %}–{% endif %}</td></tr>
         {% endfor %}
@@ -157,7 +163,7 @@
     {% endif %}
   {% endif %}
 
-  <p class="foot">Prices are live snapshots from Kiwi.com (flights) and FlixBus (buses) and change quickly. Separate tickets mean no protection if one leg is late. Bus ⇄ terminal transfer times and costs are estimates from hubs.toml.</p>
+  <p class="foot">Prices are live snapshots from Kiwi.com, Ryanair and Wizz Air (flights) and FlixBus (buses) and change quickly. ≈ marks an estimated arrival time. Separate tickets mean no protection if one leg is late. Bus ⇄ terminal transfer times and costs are estimates from hubs.toml.</p>
 </main>
 <div id="loading">Searching flights and buses… (~20 s)</div>
 </body>

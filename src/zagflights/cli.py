@@ -47,9 +47,12 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--cabin-bag", action="store_true", help="include a cabin bag in flight prices")
     s.add_argument("--checked-bag", action="store_true", help="include a checked bag in flight prices")
     s.add_argument("--min-nights", type=int, default=None, help="minimum nights at the destination")
-    s.add_argument("--max-wait", type=float, default=None, help="max hours waiting between bus and flight (default from hubs.toml: 20)")
+    s.add_argument("--max-wait", type=float, default=None, help="max hours waiting between bus and flight, or between two flights (default 7)")
     s.add_argument("--overnight-cost", type=float, default=None, help="€ to add when a wait goes through the night (default from hubs.toml: 0)")
     s.add_argument("--wait-cost", type=float, default=None, help="value of your time: € per hour waiting beyond 3h; prefers shorter waits (default 0)")
+    s.add_argument("--hop-max", type=float, default=None, help="also try a cheap first flight ZAG → any airport under this € (default 50, 0 = off)")
+    s.add_argument("--self-transfer", type=int, default=None, help="minimum minutes between two separate flights (default 180)")
+    s.add_argument("--no-direct", action="store_true", help="don't check Ryanair/Wizz Air prices directly (Kiwi only)")
     s.add_argument("--hubs", type=_codes, help="only these airports, e.g. ZAG,BUD,VCE")
     s.add_argument("--exclude", type=_codes, help="skip these airports, e.g. BEG")
     s.add_argument("--top", type=int, default=10, help="how many trips to show")
@@ -121,13 +124,13 @@ def render(console: Console, q: Query, res: PlanResult, links: int) -> None:
 
     h = Table(title="Best leg per airport", header_style="bold")
     h.add_column("Airport")
-    h.add_column("Outbound (bus + flight)", justify="right")
-    h.add_column("Return (flight + bus)", justify="right")
-    for code in sorted(set(res.best_out_by_hub) | set(res.best_back_by_hub),
-                       key=lambda c: (res.best_out_by_hub.get(c) or res.best_back_by_hub[c]).total):
-        o, b = res.best_out_by_hub.get(code), res.best_back_by_hub.get(code)
+    h.add_column("Outbound (getting there + flight)", justify="right")
+    h.add_column("Return (flight + getting home)", justify="right")
+    for label in sorted(set(res.best_out_by_hub) | set(res.best_back_by_hub),
+                        key=lambda c: (res.best_out_by_hub.get(c) or res.best_back_by_hub[c]).score):
+        o, b = res.best_out_by_hub.get(label), res.best_back_by_hub.get(label)
         hub = (o or b).hub
-        h.add_row(f"{code} {hub.name}",
+        h.add_row(f"{hub.code} {hub.name}" + (" (fly there)" if hub.via_flight else ""),
                   f"{fmt.money(o.total)} ({fmt.day(o.flight.departure)})" if o else "–",
                   f"{fmt.money(b.total)} ({fmt.day(b.flight.departure)})" if b else "–")
     console.print(h)
@@ -135,21 +138,25 @@ def render(console: Console, q: Query, res: PlanResult, links: int) -> None:
     for i, t in enumerate(res.trips[:links], 1):
         console.print(f"[bold]#{i} booking links[/]")
         for leg in (t.out, t.back):
-            f, b = leg.flight, leg.bus
+            f, b, hop = leg.flight, leg.bus, leg.hop
             bus = f"  🚌 {b.from_city} → {b.to_city} {b.departure:%d %b}: {b.booking_url}" if b else None
             flight = f"  ✈ {f.origin} → {f.destination} {f.departure:%d %b}: {f.booking_url}"
-            for line in ([bus, flight] if leg.direction == "out" else [flight, bus]):
+            hop_line = f"  ✈ {hop.origin} → {hop.destination} {hop.departure:%d %b}: {hop.booking_url}" if hop else None
+            for line in ([bus, hop_line, flight] if leg.direction == "out" else [flight, hop_line, bus]):
                 if line:
                     console.print(line, soft_wrap=True, highlight=False)
-    console.print("[dim]Prices are live snapshots (Kiwi.com, FlixBus) and change quickly; separate tickets = no protection if one leg is late.[/]")
+    console.print("[dim]Prices are live snapshots (Kiwi.com, Ryanair, Wizz Air, FlixBus) and change quickly; "
+                  "separate tickets = no protection if one leg is late. ≈ = estimated arrival time.[/]")
 
 
 def to_json(res: PlanResult) -> dict:
     def leg(l: Leg) -> dict:
         d = {
             "hub": l.hub.code,
+            "via_flight": l.hub.via_flight,
             "total": l.total,
             "flight": asdict(l.flight),
+            "hop": asdict(l.hop) if l.hop else None,
             "bus": asdict(l.bus) if l.bus else None,
             "ground_cost": l.ground_cost,
             "transfer_minutes": l.ground_minutes,
@@ -182,7 +189,10 @@ def cmd_search(args, console: Console) -> int:
         return 2
     config = load_config(args.config)
     overrides = {k: v for k, v in (("max_wait_hours", args.max_wait), ("overnight_cost", args.overnight_cost),
-                                              ("wait_cost_per_hour", args.wait_cost)) if v is not None}
+                                              ("wait_cost_per_hour", args.wait_cost), ("hop_max_price", args.hop_max),
+                                              ("self_transfer_min", args.self_transfer)) if v is not None}
+    if args.no_direct:
+        overrides["direct_airlines"] = False
     if overrides:
         config = replace(config, settings=replace(config.settings, **overrides))
     q = Query(
@@ -230,7 +240,9 @@ def cmd_hubs(args, console: Console) -> int:
     console.print(t)
     console.print(f"Check-in buffer {s.checkin_buffer_min}m · after landing {s.arrival_buffer_min}m · "
                   f"max wait {s.max_wait_hours}h · overnight cost {fmt.money(s.overnight_cost)} · "
-                  f"wait cost {fmt.money(s.wait_cost_per_hour)}/h beyond {s.free_wait_hours}h")
+                  f"wait cost {fmt.money(s.wait_cost_per_hour)}/h beyond {s.free_wait_hours}h · "
+                  f"first hops under {fmt.money(s.hop_max_price)} (≥{s.self_transfer_min}m connection) · "
+                  f"direct Ryanair/Wizz prices {'on' if s.direct_airlines else 'off'}")
     return 0
 
 

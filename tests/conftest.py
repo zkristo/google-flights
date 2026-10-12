@@ -15,12 +15,13 @@ def dt(s: str) -> datetime:
     return datetime.fromisoformat(s)
 
 
-def flight(origin: str, dest: str, dep: str, arr: str, price: float, num: str = "") -> Flight:
+def flight(origin: str, dest: str, dep: str, arr: str, price: float, num: str = "", codes: tuple = ("TA",),
+           source: str = "kiwi") -> Flight:
     return Flight(
         id=f"{origin}{dest}{dep}", origin=origin, destination=dest, origin_name=origin, destination_name=dest,
         departure=dt(dep), arrival=dt(arr), price=price, carriers=("Test Air",),
         flight_numbers=(num or f"TA{origin}{dep[-5:]}",), stops=0, booking_url=f"https://kiwi.test/{origin}{dest}",
-        route=(origin, dest),
+        route=(origin, dest), carrier_codes=codes, source=source,
     )
 
 
@@ -37,13 +38,26 @@ class FakeFlights:
         self.alias = alias or {}  # e.g. {"VCE": ["VCE", "TSF"]} to mimic Kiwi's city handling
         self.calls: list[tuple] = []
 
-    async def search(self, fly_from, fly_to, day, flex_days=0, adults=1, max_stops=None, cabin_bag=False, checked_bag=False):
+    async def search(self, fly_from, fly_to, day, flex_days=0, adults=1, max_stops=None, cabin_bag=False,
+                     checked_bag=False, price_to=None, one_for_city=False):
         self.calls.append((fly_from, fly_to, day, flex_days))
-        frm = set(self.alias.get(fly_from, [fly_from]))
-        to = set(self.alias.get(fly_to, [fly_to]))
+
+        def match(code, place):  # "Europe" behaves like Kiwi's region search
+            return place == "Europe" or code in self.alias.get(place, [place])
+
         lo, hi = day.toordinal() - flex_days, day.toordinal() + flex_days
-        return sorted((f for f in self.flights if f.origin in frm and f.destination in to
-                       and lo <= f.departure.date().toordinal() <= hi), key=lambda f: f.price)
+        found = sorted((f for f in self.flights if match(f.origin, fly_from) and match(f.destination, fly_to)
+                        and lo <= f.departure.date().toordinal() <= hi
+                        and (max_stops is None or f.stops <= max_stops)
+                        and (price_to is None or f.price <= price_to)), key=lambda f: f.price)
+        if one_for_city:
+            seen, unique = set(), []
+            for f in found:
+                if f.destination not in seen:
+                    seen.add(f.destination)
+                    unique.append(f)
+            found = unique
+        return found
 
 
 class FakeBuses:

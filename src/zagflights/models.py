@@ -27,6 +27,9 @@ class Flight:
     stops: int
     booking_url: str
     route: tuple[str, ...] = ()
+    carrier_codes: tuple[str, ...] = ()
+    source: str = "kiwi"  # where the price comes from: "kiwi", "ryanair" or "wizz"
+    approx_arrival: bool = False  # arrival estimated (Wizz's timetable has no arrival times)
 
     @property
     def key(self) -> tuple:
@@ -63,10 +66,12 @@ class Leg:
     overnight: bool
     overnight_cost: float = 0.0
     penalty: float = 0.0  # optional "value of your time" for long waits; ranks but is not money paid
+    hop: Flight | None = None  # cheap separate flight home ⇄ hub instead of a bus
 
     @property
     def total(self) -> float:
-        return round(self.flight.price + self.ground_cost + self.overnight_cost, 2)
+        hop = self.hop.price if self.hop else 0.0
+        return round(self.flight.price + hop + self.ground_cost + self.overnight_cost, 2)
 
     @property
     def score(self) -> float:
@@ -81,12 +86,16 @@ class Leg:
         """When this leg starts (leaving home for "out", leaving the destination for "back")."""
         if self.direction == "out" and self.bus:
             return self.bus.departure
+        if self.direction == "out" and self.hop:
+            return self.hop.departure
         return self.flight.departure
 
     @property
     def ends(self) -> datetime:
         if self.direction == "back" and self.bus:
             return self.bus.arrival
+        if self.direction == "back" and self.hop:
+            return self.hop.arrival
         return self.flight.arrival
 
 
@@ -115,7 +124,7 @@ class PlanResult:
     out_legs: list[Leg]
     back_legs: list[Leg]
     date_matrix: dict[tuple[date, date], float]
-    best_out_by_hub: dict[str, Leg]
+    best_out_by_hub: dict[str, Leg]  # keyed by Hub.label
     best_back_by_hub: dict[str, Leg]
     baseline: Trip | None  # cheapest trip flying from and to the home airport only
     warnings: list[str] = field(default_factory=list)

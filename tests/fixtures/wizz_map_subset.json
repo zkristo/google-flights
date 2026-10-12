@@ -1,0 +1,339 @@
+{
+ "cities": [
+  {
+   "iata": "ATH",
+   "mac": null,
+   "longitude": 23.944444444444446,
+   "currencyCode": "EUR",
+   "latitude": 37.936388888888885,
+   "shortName": "Athens\r\n",
+   "countryName": "Greece",
+   "countryCode": "GR",
+   "connections": [
+    {
+     "iata": "BUD",
+     "operationStartDate": "2026-10-12T09:35:00",
+     "rescueEndDate": "2026-10-12T14:57:55.1979564+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LTN",
+     "operationStartDate": "2026-10-13T13:00:00",
+     "rescueEndDate": "2026-10-12T14:57:55.1979564+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LON",
+     "operationStartDate": "2026-10-13T13:00:00",
+     "rescueEndDate": "2026-10-12T14:57:55.1979564+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "VCE",
+     "operationStartDate": "2026-10-12T15:35:00",
+     "rescueEndDate": "2026-10-12T14:57:55.1979564+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "Athens\r\n"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [
+    1,
+    2,
+    5,
+    0
+   ],
+   "isFakeStation": false
+  },
+  {
+   "iata": "BUD",
+   "mac": null,
+   "longitude": 19.255555555555556,
+   "currencyCode": "HUF",
+   "latitude": 47.43694444444444,
+   "shortName": "Budapest",
+   "countryName": "Hungary",
+   "countryCode": "HU",
+   "connections": [
+    {
+     "iata": "ATH",
+     "operationStartDate": "2026-10-12T05:50:00",
+     "rescueEndDate": "2026-10-12T14:57:55.1979564+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LON",
+     "operationStartDate": "2026-10-12T06:00:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2135817+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LTN",
+     "operationStartDate": "2026-10-12T06:00:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2135817+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "VCE",
+     "operationStartDate": "2026-10-12T17:10:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2135817+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "Budapest"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [
+    1,
+    5,
+    8,
+    9,
+    0
+   ],
+   "isFakeStation": false
+  },
+  {
+   "iata": "VCE",
+   "mac": "VEN",
+   "longitude": 12.35,
+   "currencyCode": "EUR",
+   "latitude": 45.5,
+   "shortName": "Venice",
+   "countryName": "Italy",
+   "countryCode": "IT",
+   "connections": [
+    {
+     "iata": "ATH",
+     "operationStartDate": "2026-10-12T11:45:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2716421+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "BUD",
+     "operationStartDate": "2026-10-12T15:15:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2716421+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LTN",
+     "operationStartDate": "2026-10-12T18:55:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2716421+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LON",
+     "operationStartDate": "2026-10-12T18:55:00",
+     "rescueEndDate": "2026-10-12T14:57:55.2716421+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "Venice"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [],
+   "isFakeStation": false
+  },
+  {
+   "iata": "BEG",
+   "mac": null,
+   "longitude": 20.309166666666666,
+   "currencyCode": "RSD",
+   "latitude": 44.818333333333335,
+   "shortName": "Belgrade",
+   "countryName": "Serbia",
+   "countryCode": "RS",
+   "connections": [
+    {
+     "iata": "LTN",
+     "operationStartDate": "2026-10-12T11:30:00",
+     "rescueEndDate": "2026-10-12T14:57:55.40398+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "LON",
+     "operationStartDate": "2026-10-12T11:30:00",
+     "rescueEndDate": "2026-10-12T14:57:55.40398+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "Belgrade"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [
+    1,
+    7,
+    8,
+    9,
+    0
+   ],
+   "isFakeStation": false
+  },
+  {
+   "iata": "LON",
+   "mac": "LON",
+   "longitude": -0.11805555555555555,
+   "currencyCode": "GBP",
+   "latitude": 51.51,
+   "shortName": "London (All Airports)",
+   "countryName": "United Kingdom",
+   "countryCode": "GB",
+   "connections": [
+    {
+     "iata": "BUD",
+     "operationStartDate": "2026-10-12T08:30:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "ATH",
+     "operationStartDate": "2026-10-13T06:20:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "BEG",
+     "operationStartDate": "2026-10-12T07:05:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "VCE",
+     "operationStartDate": "2026-10-12T20:50:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "London (All Airports)"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [],
+   "isFakeStation": true
+  },
+  {
+   "iata": "LTN",
+   "mac": "LON",
+   "longitude": -0.3683333333333333,
+   "currencyCode": "GBP",
+   "latitude": 51.874722222222225,
+   "shortName": "London Luton",
+   "countryName": "United Kingdom",
+   "countryCode": "GB",
+   "connections": [
+    {
+     "iata": "ATH",
+     "operationStartDate": "2026-10-13T06:20:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "BEG",
+     "operationStartDate": "2026-10-12T07:05:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "BUD",
+     "operationStartDate": "2026-10-12T08:30:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4665313+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    },
+    {
+     "iata": "VCE",
+     "operationStartDate": "2026-10-12T20:50:00",
+     "rescueEndDate": "2026-10-12T14:57:55.4821151+01:00",
+     "isDomestic": false,
+     "isNew": false,
+     "isConnected": false,
+     "isDirectFlight": true
+    }
+   ],
+   "aliases": [
+    "London Luton"
+   ],
+   "isExcludedFromGeoLocation": false,
+   "rank": 1,
+   "categories": [
+    1,
+    2,
+    5,
+    8,
+    0
+   ],
+   "isFakeStation": false
+  }
+ ]
+}

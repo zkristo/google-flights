@@ -30,6 +30,10 @@ def test_default_config_parses():
     assert any(s.flixbus == "Budapest Airport" for s in cfg.hubs["BUD"].stops)
     assert [h.code for h in cfg.select(["bud", "vce"])] == ["BUD", "VCE"]
     assert "BEG" not in [h.code for h in cfg.select(exclude=["BEG"])]
+    assert {"ZAD", "SPU", "OSI"} <= set(cfg.hubs)
+    assert any(s.flixbus.startswith("Split Airport") for s in cfg.hubs["SPU"].stops)
+    assert cfg.settings.max_wait_hours < 8 and cfg.settings.hop_max_price == 50 and cfg.settings.direct_airlines
+    assert cfg.home_hub.code == "ZAG"
 
 
 def test_select_unknown_hub_raises():
@@ -62,6 +66,7 @@ def test_web_form_and_results(config, monkeypatch):
     client = TestClient(web_app.create_app())
     page = client.get("/")
     assert page.status_code == 200 and "zagflights" in page.text
+    assert 'name="airline_direct" value="1" checked' in page.text and 'name="direct" value="1" >' in page.text
     page = client.get("/", params={"dest": "ath", "out": "2026-11-10", "back": "2026-11-15", "flex": "2"})
     assert page.status_code == 200 and "€106" in page.text and "Flight on Kiwi.com" in page.text
     api = client.get("/api/search", params={"dest": "ATH", "out": "2026-11-10", "back": "2026-11-15", "flex": "2"})

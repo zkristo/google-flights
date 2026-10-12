@@ -160,3 +160,83 @@ def test_spans_night():
     assert spans_night(dt("2026-11-10T01:05"), dt("2026-11-10T14:40"))
     assert not spans_night(dt("2026-11-10T07:00"), dt("2026-11-10T22:00"))
     assert not spans_night(dt("2026-11-10T12:25"), dt("2026-11-10T18:00"))
+
+
+# ------------------------------------------------------------------ cheap first hops (fly ZAG → X → destination)
+
+HOP_Q = Query("ATH", date(2026, 11, 10), date(2026, 11, 15))
+
+
+def test_hop_leg_outbound(config):
+    flights = FakeFlights([
+        flight("ZAG", "BGY", "2026-11-10T08:00", "2026-11-10T09:20", 19),
+        flight("BGY", "ATH", "2026-11-10T15:00", "2026-11-10T18:00", 20),
+        flight("BGY", "ATH", "2026-11-10T10:30", "2026-11-10T13:30", 5),  # only 1h10 after landing → too tight
+        flight("ATH", "ZAG", "2026-11-15T10:00", "2026-11-15T12:00", 40),
+    ])
+    res = plan(config, flights, FakeBuses([]), HOP_Q, hubs=["ZAG"])
+    hop_legs = [leg for leg in res.out_legs if leg.hub.via_flight]
+    assert len(hop_legs) == 1
+    leg = hop_legs[0]
+    assert leg.hub.code == "BGY" and leg.hop.price == 19 and leg.flight.price == 20
+    assert leg.total == 8 + 19 + 20 and leg.wait == timedelta(hours=5, minutes=40)
+    assert res.trips[0].out is leg  # €47 beats nothing else here
+    assert "BGY ✈" in res.best_out_by_hub
+
+
+def test_hop_respects_price_cap_max_wait_and_can_be_disabled(config):
+    flights = FakeFlights([
+        flight("ZAG", "BGY", "2026-11-10T06:00", "2026-11-10T07:20", 19),
+        flight("BGY", "ATH", "2026-11-10T19:00", "2026-11-10T22:00", 20),  # 11h40 after landing > 7h max wait
+        flight("ZAG", "MLA", "2026-11-10T08:00", "2026-11-10T10:00", 60),  # hop over €50 cap
+        flight("MLA", "ATH", "2026-11-10T14:00", "2026-11-10T16:00", 10),
+    ])
+    res = plan(config, flights, FakeBuses([]), replace(HOP_Q, back_date=HOP_Q.out_date), hubs=["ZAG"],
+               settings={"max_wait_hours": 7})
+    assert not [leg for leg in res.out_legs if leg.hub.via_flight]
+    res = plan(config, flights, FakeBuses([]), replace(HOP_Q, back_date=HOP_Q.out_date), hubs=["ZAG"],
+               settings={"max_wait_hours": 7, "hop_max_price": 70})
+    assert [leg.hub.code for leg in res.out_legs if leg.hub.via_flight] == ["MLA"]
+    res = plan(config, flights, FakeBuses([]), replace(HOP_Q, back_date=HOP_Q.out_date), hubs=["ZAG"],
+               settings={"hop_max_price": 0, "max_wait_hours": 20})
+    assert not [leg for leg in res.out_legs if leg.hub.via_flight]
+
+
+def test_hop_leg_return_is_mirrored(config):
+    flights = FakeFlights([
+        flight("ZAG", "ATH", "2026-11-10T10:00", "2026-11-10T12:00", 90),
+        flight("ATH", "CRL", "2026-11-15T07:00", "2026-11-15T09:30", 25),
+        flight("CRL", "ZAG", "2026-11-15T14:00", "2026-11-15T16:00", 15),
+        flight("CRL", "ZAG", "2026-11-15T10:00", "2026-11-15T12:00", 9),  # leaves 30 min after landing → too tight
+    ])
+    res = plan(config, flights, FakeBuses([]), HOP_Q, hubs=["ZAG"])
+    leg = next(leg for leg in res.back_legs if leg.hub.via_flight)
+    assert (leg.flight.origin, leg.flight.destination, leg.hop.origin, leg.hop.destination) == ("ATH", "CRL", "CRL", "ZAG")
+    assert leg.total == 25 + 15 + 8 and leg.wait == timedelta(hours=4, minutes=30)
+
+
+class _FakeDirect:
+    def __init__(self, cheaper):
+        self.cheaper = cheaper
+        self.calls = []
+
+    async def improve(self, flights, pairs, days, adults):
+        self.calls.append(pairs)
+        return sorted([self.cheaper.get(f.key, f) for f in flights], key=lambda f: f.price)
+
+    def summary(self):
+        return []
+
+
+def test_direct_prices_are_used_unless_bags_requested(config):
+    kiwi = flight("ZAG", "ATH", "2026-11-10T10:00", "2026-11-10T12:00", 50)
+    back = flight("ATH", "ZAG", "2026-11-15T10:00", "2026-11-15T12:00", 40)
+    direct = _FakeDirect({kiwi.key: replace(kiwi, price=35, source="ryanair")})
+    hub_list = [config.hubs["ZAG"]]
+    res = asyncio.run(Planner(replace(config, settings=replace(config.settings, hop_max_price=0)), hub_list,
+                              FakeFlights([kiwi, back]), FakeBuses([]), direct=direct).run(HOP_Q))
+    assert res.trips[0].out.flight.price == 35 and res.trips[0].out.flight.source == "ryanair"
+    assert ("ZAG", "ATH") in direct.calls[0]
+    res = asyncio.run(Planner(config, hub_list, FakeFlights([kiwi, back]), FakeBuses([]), direct=_FakeDirect({}))
+                      .run(replace(HOP_Q, cabin_bag=True)))
+    assert res.trips[0].out.flight.price == 50 and any("bags" in w for w in res.warnings)

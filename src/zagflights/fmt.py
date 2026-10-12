@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, datetime, timedelta
 
-from .models import Leg
+from .models import Flight, Leg
 
 
 def money(x: float) -> str:
@@ -33,19 +33,26 @@ def time_with_day(t: datetime, ref: datetime) -> str:
     return hm(t) + (f" ({delta:+d})" if delta else "")
 
 
-def flight_line(leg: Leg) -> str:
-    f = leg.flight
+SOURCE_LABEL = {"ryanair": "ryanair.com", "wizz": "wizzair.com"}
+
+
+def flight_text(f: Flight, hop: bool = False) -> str:
     via = f" via {'/'.join(f.route[1:-1])}" if f.stops and len(f.route) > 2 else ""
-    return (f"✈ {f.origin} {hm(f.departure)} → {f.destination} {time_with_day(f.arrival, f.departure)}"
-            f"{via} · {', '.join(f.carriers)} · {money(f.price)}")
+    arrival = ("≈" if f.approx_arrival else "") + time_with_day(f.arrival, f.departure)
+    source = f" ({SOURCE_LABEL[f.source]})" if f.source in SOURCE_LABEL else ""
+    tag = " · hop" if hop else ""
+    return (f"✈ {f.origin} {hm(f.departure)} → {f.destination} {arrival}{via} · {', '.join(f.carriers)} · "
+            f"{money(f.price)}{source}{tag}")
+
+
+def flight_line(leg: Leg) -> str:
+    return flight_text(leg.flight)
 
 
 def ground_line(leg: Leg) -> str:
-    s = leg.hub
     if leg.bus is None:
-        ht = s.home_transfer
         where = "home → airport" if leg.direction == "out" else "airport → home"
-        return f"🚕 {where} ({dur(timedelta(minutes=ht.minutes))}) · {money(leg.ground_cost)}"
+        return f"🚕 {where} ({dur(timedelta(minutes=leg.ground_minutes))}) · {money(leg.ground_cost)}"
     b, stop = leg.bus, leg.stop
     ref = leg.flight.departure if leg.direction == "out" else leg.flight.arrival
     change = f", {b.transfers} change" + ("s" if b.transfers > 1 else "") if b.transfers else ""
@@ -59,19 +66,26 @@ def ground_line(leg: Leg) -> str:
 
 
 def wait_line(leg: Leg) -> str:
+    night = " · 🌙 overnight wait" if leg.overnight else ""
+    extra = f" (+{money(leg.overnight_cost)})" if leg.overnight_cost else ""
+    if leg.hop is not None:
+        return f"⏱ {dur(leg.wait)} connection in {leg.hub.code} (separate tickets){night}{extra}"
     if leg.bus is None:
         return ""
     if leg.direction == "out":
         text = f"⏱ {dur(leg.wait)} at the airport before take-off"
     else:
         text = f"⏱ bus leaves {dur(leg.wait)} after landing"
-    night = " · 🌙 overnight wait" if leg.overnight else ""
-    extra = f" (+{money(leg.overnight_cost)})" if leg.overnight_cost else ""
     return f"{text}{night}{extra}"
 
 
 def leg_lines(leg: Leg) -> list[str]:
-    head = f"{day(leg.flight.departure)} · {leg.hub.code} {leg.hub.name} · {money(leg.total)}"
-    body = [ground_line(leg), flight_line(leg)] if leg.direction == "out" else [flight_line(leg), ground_line(leg)]
+    via = f"fly via {leg.hub.code} {leg.hub.name}" if leg.hub.via_flight else f"{leg.hub.code} {leg.hub.name}"
+    head = f"{day(leg.flight.departure)} · {via} · {money(leg.total)}"
+    hop = [flight_text(leg.hop, hop=True)] if leg.hop else []
+    if leg.direction == "out":
+        body = [ground_line(leg), *hop, flight_line(leg)]
+    else:
+        body = [flight_line(leg), *hop, ground_line(leg)]
     w = wait_line(leg)
     return [head, *body, *([w] if w else [])]

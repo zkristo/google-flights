@@ -31,6 +31,11 @@ class Hub:
     stops: tuple[Stop, ...] = ()
     home_transfer: HomeTransfer | None = None
     enabled: bool = True
+    via_flight: bool = False  # a "first hop" airport you fly to from home, not a bus hub
+
+    @property
+    def label(self) -> str:
+        return f"{self.code} ✈" if self.via_flight else self.code
 
 
 @dataclass(frozen=True)
@@ -38,10 +43,13 @@ class Settings:
     home: str = "Zagreb"
     checkin_buffer_min: int = 120
     arrival_buffer_min: int = 45
-    max_wait_hours: float = 20
+    max_wait_hours: float = 7
     overnight_cost: float = 0.0
     wait_cost_per_hour: float = 0.0
     free_wait_hours: float = 3.0
+    hop_max_price: float = 50.0
+    self_transfer_min: int = 180
+    direct_airlines: bool = True
 
 
 @dataclass(frozen=True)
@@ -56,6 +64,11 @@ class Config:
             raise ValueError(f"Unknown hub(s): {', '.join(unknown)}. Known: {', '.join(self.hubs)}")
         skip = {c.upper() for c in exclude or []}
         return [self.hubs[c] for c in codes if c not in skip]
+
+    @property
+    def home_hub(self) -> Hub | None:
+        """The home airport (the hub reached by a local transfer rather than a bus)."""
+        return next((h for h in self.hubs.values() if h.home_transfer), None)
 
 
 USER_CONFIG = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "zagflights" / "hubs.toml"

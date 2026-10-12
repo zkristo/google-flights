@@ -55,6 +55,9 @@ def create_app(config_path: str | None = None) -> FastAPI:
             "max_wait": _float(params.get("max_wait"), base_config.settings.max_wait_hours),
             "overnight_cost": _float(params.get("overnight_cost"), base_config.settings.overnight_cost),
             "wait_cost": _float(params.get("wait_cost"), base_config.settings.wait_cost_per_hour),
+            "hop_max": _float(params.get("hop_max"), base_config.settings.hop_max_price),
+            # checkbox: absent on a submitted form means "off"; on first load use the config default
+            "airline_direct": (params.get("airline_direct") == "1") if params.get("dest") else base_config.settings.direct_airlines,
             "hubs": hubs_all,
             "selected": selected,
         }
@@ -72,7 +75,9 @@ def create_app(config_path: str | None = None) -> FastAPI:
                   cabin_bag=form["cabin_bag"], checked_bag=form["checked_bag"], top=12)
         config = replace(base_config, settings=replace(base_config.settings, max_wait_hours=form["max_wait"],
                                                        overnight_cost=form["overnight_cost"],
-                                                       wait_cost_per_hour=form["wait_cost"]))
+                                                       wait_cost_per_hour=form["wait_cost"],
+                                                       hop_max_price=max(0.0, form["hop_max"]),
+                                                       direct_airlines=form["airline_direct"]))
         try:
             res = await find_trips(q, config, only_hubs=selected)
         except (ValueError, ProviderError) as exc:

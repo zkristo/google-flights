@@ -1,0 +1,177 @@
+[
+ {
+  "arrivalAirport": {
+   "code": "ACE",
+   "name": "Lanzarote",
+   "seoName": "lanzarote",
+   "aliases": [],
+   "base": true,
+   "city": {
+    "name": "Lanzarote",
+    "code": "LANZAROTE"
+   },
+   "region": {
+    "name": "Canary Isles",
+    "code": "CANARY_ISLES"
+   },
+   "country": {
+    "code": "es",
+    "iso3code": "ESP",
+    "name": "Spain",
+    "currency": "EUR",
+    "defaultAirportCode": "BCN",
+    "schengen": true
+   },
+   "coordinates": {
+    "latitude": 28.9455,
+    "longitude": -13.6052
+   },
+   "timeZone": "Atlantic/Canary"
+  },
+  "recent": true,
+  "seasonal": false,
+  "operator": "FR",
+  "tags": []
+ },
+ {
+  "arrivalAirport": {
+   "code": "AGP",
+   "name": "Malaga",
+   "seoName": "malaga",
+   "aliases": [],
+   "base": true,
+   "city": {
+    "name": "Malaga",
+    "code": "MALAGA"
+   },
+   "region": {
+    "name": "Costa del Sol",
+    "code": "COSTA_DE_SOL"
+   },
+   "country": {
+    "code": "es",
+    "iso3code": "ESP",
+    "name": "Spain",
+    "currency": "EUR",
+    "defaultAirportCode": "BCN",
+    "schengen": true
+   },
+   "coordinates": {
+    "latitude": 36.6749,
+    "longitude": -4.49911
+   },
+   "timeZone": "Europe/Madrid"
+  },
+  "recent": false,
+  "seasonal": false,
+  "operator": "FR",
+  "tags": []
+ },
+ {
+  "arrivalAirport": {
+   "code": "ALC",
+   "name": "Alicante",
+   "seoName": "alicante",
+   "aliases": [],
+   "base": true,
+   "city": {
+    "name": "Alicante",
+    "code": "ALICANTE"
+   },
+   "region": {
+    "name": "Costa Blanca",
+    "code": "COSTA_BLANCA"
+   },
+   "country": {
+    "code": "es",
+    "iso3code": "ESP",
+    "name": "Spain",
+    "currency": "EUR",
+    "defaultAirportCode": "BCN",
+    "schengen": true
+   },
+   "coordinates": {
+    "latitude": 38.2822,
+    "longitude": -0.558156
+   },
+   "timeZone": "Europe/Madrid"
+  },
+  "recent": true,
+  "seasonal": false,
+  "operator": "FR",
+  "tags": []
+ },
+ {
+  "arrivalAirport": {
+   "code": "BGY",
+   "name": "Milan Bergamo",
+   "seoName": "milan-bergamo",
+   "aliases": [],
+   "base": true,
+   "city": {
+    "name": "Bergamo",
+    "code": "BERGAMO"
+   },
+   "macCity": {
+    "name": "Milan",
+    "code": "MILAN",
+    "macCode": "MIL"
+   },
+   "region": {
+    "name": "Lombardy",
+    "code": "LOMBARDY"
+   },
+   "country": {
+    "code": "it",
+    "iso3code": "ITA",
+    "name": "Italy",
+    "currency": "EUR",
+    "defaultAirportCode": "BGY",
+    "schengen": true
+   },
+   "coordinates": {
+    "latitude": 45.6739,
+    "longitude": 9.70417
+   },
+   "timeZone": "Europe/Rome"
+  },
+  "recent": false,
+  "seasonal": false,
+  "operator": "FR",
+  "tags": []
+ },
+ {
+  "arrivalAirport": {
+   "code": "BSL",
+   "name": "Basel",
+   "seoName": "basel",
+   "aliases": [],
+   "base": false,
+   "city": {
+    "name": "Basel",
+    "code": "BASEL"
+   },
+   "region": {
+    "name": "Default CH",
+    "code": "DEFAULT_CH"
+   },
+   "country": {
+    "code": "ch",
+    "iso3code": "CHE",
+    "name": "Switzerland",
+    "currency": "CHF",
+    "defaultAirportCode": "BSL",
+    "schengen": true
+   },
+   "coordinates": {
+    "latitude": 47.5896,
+    "longitude": 7.52991
+   },
+   "timeZone": "Europe/Paris"
+  },
+  "recent": false,
+  "seasonal": false,
+  "operator": "FR",
+  "tags": []
+ }
+]

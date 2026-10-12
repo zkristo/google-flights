@@ -8,11 +8,14 @@
 home = "Zagreb"            # FlixBus city you start from and return to
 checkin_buffer_min = 120   # be at the departure airport this long before take-off
 arrival_buffer_min = 45    # time from landing until you are out of the airport
-max_wait_hours = 20        # longest wait between bus and flight (overnight waits allowed)
+max_wait_hours = 7         # longest wait between bus and flight, or between two flights
 overnight_cost = 0         # € added when a wait runs through the night (hostel, airport bench...)
 wait_cost_per_hour = 0     # value of your time: € per hour of waiting beyond free_wait_hours.
                            # Only affects which option wins; shown prices stay real money.
 free_wait_hours = 3
+hop_max_price = 50         # also try flying ZAG → any airport under this € first (0 = off), and back the same way
+self_transfer_min = 180    # minimum gap between two separately booked flights
+direct_airlines = true     # check Ryanair and Wizz Air's own prices (cheaper than Kiwi's by a few €)
 
 # The home airport: no long-distance bus, just a transfer from home to the terminal.
 [hubs.ZAG]
@@ -72,3 +75,18 @@ stops = [
 [hubs.BEG]
 name = "Belgrade"
 stops = [{ flixbus = "Belgrade", transfer_min = 45, transfer_cost = 3 }]
+
+[hubs.ZAD]
+name = "Zadar"
+stops = [{ flixbus = "Zadar", transfer_min = 30, transfer_cost = 5 }]
+
+[hubs.SPU]
+name = "Split"
+stops = [
+    { flixbus = "Split Airport (Kaštel Štafilić)", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Split", transfer_min = 40, transfer_cost = 8 },
+]
+
+[hubs.OSI]
+name = "Osijek"
+stops = [{ flixbus = "Osijek", transfer_min = 30, transfer_cost = 5 }]
