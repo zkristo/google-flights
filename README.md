@@ -79,7 +79,11 @@ zagflights events data/events.json --out data/flights.json
 
 Prices the cheapest trip to every upcoming event in a [BEST Calendar](https://github.com/zkristo/best-calendar) `events.json` and writes `flights.json`, which the calendar site shows in each event's details. The calendar's hourly routine runs it.
 
-- **Which events:** in-person events with an `airports` list (e.g. `["ATH"]` or `["BRU", "CRL"]`), starting tomorrow or later. Deadlines, online events and events without airports are skipped.
+- **Which events:** in-person events starting tomorrow or later that have either:
+  - an `airports` list (e.g. `["ATH"]` or `["BRU", "CRL"]`): searched by bus + flight as above; or
+  - a `bus` city (e.g. `"Ljubljana"`, `"Budapest"`) for places within bus reach: searched by FlixBus alone, Zagreb ↔ that city. Night rides (leaving or arriving 00:00–06:00) only win when they're at least €3 cheaper, and each option uses a different outbound bus.
+
+  Deadlines, online events and events with neither field are skipped.
 - **Which dates:**
   - Main result: fly out on the event's first day, landing that day, and fly home on its last day. Up to 3 options are kept.
   - Second option, always saved as `alternative`: the cheapest trip that is a day off (`--flex`, default ±1), e.g. arriving a day late or leaving a day early. It includes how many days it shifts the arrival and departure, and how much cheaper (or dearer) it is than the main option.

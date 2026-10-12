@@ -5,9 +5,10 @@ each event's details. Run by the calendar's hourly sync routine:
 
     zagflights events data/events.json --out data/flights.json
 
-Only in-person events with destination airports (the ``airports`` field, e.g. ``["ATH"]``) are
-searched. Results are refreshed when older than ``--max-age-hours``, at most ``--limit`` events
-per run (stalest first), so one run stays short.
+Only in-person events are searched: by bus + flight when they list destination airports (the
+``airports`` field, e.g. ``["ATH"]``), or by FlixBus alone when they name a city within bus reach
+(the ``bus`` field, e.g. ``"Ljubljana"``). Results are refreshed when older than
+``--max-age-hours``, at most ``--limit`` events per run (stalest first), so one run stays short.
 """
 
 from __future__ import annotations
@@ -17,18 +18,19 @@ import json
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from typing import Callable
+from typing import Awaitable, Callable
 from zoneinfo import ZoneInfo
 
 from . import fmt
 from .config import Config
-from .models import Leg, PlanResult, Trip
+from .models import BusRide, Leg, PlanResult, Trip
 from .planner import Query, combine
 
 TZ = ZoneInfo("Europe/Zagreb")
 SKIP_TAGS = {"deadline"}
 OPTIONS = 3  # trips kept for the event's own dates
 FORMAT = 2  # bump when the entry shape changes, so older entries are searched again
+BusSearch = Callable[[str, str, date], Awaitable[list[BusRide]]]  # (from city, to city, day) → rides
 
 
 def now_local() -> datetime:
@@ -55,10 +57,11 @@ class Target:
     airports: tuple[str, ...]
     out: date  # arrive by this day (the event's first day)
     back: date  # fly home on this day (the event's last day)
+    bus: str | None = None  # FlixBus city for events within bus reach (searched by bus only)
 
     @property
     def destination(self) -> str:
-        return ",".join(self.airports)
+        return f"bus:{self.bus}" if self.bus else ",".join(self.airports)
 
     @property
     def key(self) -> dict:
@@ -81,10 +84,11 @@ def targets(events: list[dict], today: date, horizon_days: int) -> tuple[list[Ta
         if not start or start <= today or start > today + timedelta(days=horizon_days):
             continue
         airports = tuple(a.strip().upper() for a in e.get("airports") or [] if isinstance(a, str) and len(a.strip()) == 3)
-        if not airports:
-            skipped.append((e.get("id", "?"), "no airports field"))
+        bus = e.get("bus").strip() if isinstance(e.get("bus"), str) else ""
+        if not airports and not bus:
+            skipped.append((e.get("id", "?"), "no airports or bus field"))
             continue
-        found.append(Target(e["id"], e.get("title", ""), airports, start, max(end, start)))
+        found.append(Target(e["id"], e.get("title", ""), airports, start, max(end, start), bus=None if airports else bus))
     return found, skipped
 
 
@@ -167,6 +171,7 @@ def summarise(target: Target, res: PlanResult, searched_at: datetime, flex: int 
     return {
         "title": target.title,
         **target.key,
+        "mode": "flight",
         "searchedAt": iso_local(searched_at),
         "best": [trip_json(t) for t in best],
         "alternative": alternative,
@@ -174,6 +179,91 @@ def summarise(target: Target, res: PlanResult, searched_at: datetime, flex: int 
         "grid": [{"out": o.isoformat(), "back": b.isoformat(), "total": v} for (o, b), v in sorted(res.date_matrix.items())],
         "warnings": res.warnings,
     }
+
+
+# ------------------------------------------------------------------ bus-only events
+
+def _bus_leg(r: BusRide, city: str) -> dict:
+    step = {"kind": "bus", "from": r.from_station, "to": r.to_station, "dep": _t(r.departure), "arr": _t(r.arrival),
+            "price": r.price, "changes": r.transfers, "url": r.booking_url, "transfer": None}
+    return {"airport": city, "airportName": city, "viaFlight": False, "mode": "bus", "total": round(r.price, 2),
+            "wait": None, "overnight": r.arrival.date() > r.departure.date(), "steps": [step]}
+
+
+NIGHT_RIDE_COST = 3.0  # ranking only: a bus leaving or arriving 00:00–06:00 must be this much cheaper to win
+
+
+def _night(dt: datetime) -> bool:
+    return dt.hour < 6
+
+
+def summarise_bus(target: Target, outs: list[BusRide], backs: list[BusRide], searched_at: datetime,
+                  flex: int = 1) -> dict:
+    """flights.json entry for an event reached by FlixBus alone: cheapest bus there and back."""
+    city = target.bus or ""
+
+    def on_dates(o: BusRide, b: BusRide) -> bool:  # leave and arrive on the first day, head home on the last
+        return o.departure.date() == o.arrival.date() == target.out and b.departure.date() == target.back
+
+    def near(o: BusRide, b: BusRide) -> bool:
+        return (abs((o.arrival.date() - target.out).days) <= flex
+                and abs((b.departure.date() - target.back).days) <= flex)
+
+    def rank(p: tuple[BusRide, BusRide]):
+        o, b = p
+        nights = sum(_night(x) for x in (o.departure, o.arrival, b.departure, b.arrival))
+        # cheapest first, night rides count a little dearer; then arrive earliest and leave latest
+        return (round(o.price + b.price + NIGHT_RIDE_COST * min(nights, 2), 2), o.arrival, -b.departure.timestamp())
+
+    pairs = [(o, b) for o in outs for b in backs if b.departure > o.arrival and near(o, b)]
+    best, used = [], set()
+    for p in sorted((p for p in pairs if on_dates(*p)), key=rank):  # one option per outbound bus
+        bus_key = (p[0].from_station, p[0].departure)  # the same bus can be listed once per drop-off stop
+        if bus_key not in used and len(best) < OPTIONS:
+            used.add(bus_key)
+            best.append(p)
+    others = [p for p in pairs if not on_dates(*p)]
+    alt = min(others, key=rank) if others else None
+
+    def trip(p: tuple[BusRide, BusRide]) -> dict:
+        o, b = p
+        return {"total": round(o.price + b.price, 2), "nights": (b.departure.date() - o.arrival.date()).days,
+                "out": _bus_leg(o, city), "back": _bus_leg(b, city)}
+
+    alternative = None
+    if alt:
+        alternative = {**trip(alt), "arriveShift": (alt[0].arrival.date() - target.out).days,
+                       "leaveShift": (alt[1].departure.date() - target.back).days,
+                       "saving": round(trip(best[0])["total"] - trip(alt)["total"], 2) if best else None}
+    grid: dict[tuple[date, date], float] = {}
+    for o, b in pairs:
+        cell = (o.departure.date(), b.departure.date())
+        grid[cell] = min(grid.get(cell, 1e9), round(o.price + b.price, 2))
+    warnings = []
+    if not outs:
+        warnings.append(f"No FlixBus rides found to {city} around {target.out}.")
+    if not backs:
+        warnings.append(f"No FlixBus rides found from {city} around {target.back}.")
+    return {
+        "title": target.title,
+        **target.key,
+        "mode": "bus",
+        "searchedAt": iso_local(searched_at),
+        "best": [trip(p) for p in best],
+        "alternative": alternative,
+        "baseline": None,
+        "grid": [{"out": o.isoformat(), "back": b.isoformat(), "total": v} for (o, b), v in sorted(grid.items())],
+        "warnings": warnings,
+    }
+
+
+async def bus_trips(target: Target, home: str, bus_search: BusSearch, flex: int = 1) -> tuple[list[BusRide], list[BusRide]]:
+    """Rides home → city around the first day (incl. the evening before) and back around the last day."""
+    out_days = [target.out + timedelta(days=k) for k in range(-flex - 1, flex + 1)]
+    back_days = [target.back + timedelta(days=k) for k in range(-flex, flex + 1)]
+    outs = await asyncio.gather(*(bus_search(home, target.bus, d) for d in out_days))
+    backs = await asyncio.gather(*(bus_search(target.bus, home, d) for d in back_days))
+    return [r for rs in outs for r in rs], [r for rs in backs for r in rs]
 
 
 # ------------------------------------------------------------------ batch run
@@ -190,6 +280,7 @@ async def refresh(
     out_path: Path,
     config: Config,
     search: Callable,  # async (Query, Config) -> PlanResult
+    bus_search: BusSearch | None = None,  # for events with a `bus` city
     max_age_hours: float = 20,
     limit: int = 4,
     horizon_days: int = 180,
@@ -222,11 +313,16 @@ async def refresh(
 
     searched, failed = [], []
     for _age, t in due[:limit]:
-        progress(f"✈ {t.title}: {t.destination} {t.out} → {t.back}")
-        q = Query(t.destination, t.out, t.back, flex=flex, top=20)
+        progress(f"{'🚌' if t.bus else '✈'} {t.title}: {t.destination} {t.out} → {t.back}")
         try:
-            res = await search(q, config)
-            entries[t.id] = summarise(t, res, now_local(), flex=flex)
+            if t.bus:
+                if bus_search is None:
+                    raise RuntimeError("no bus search available")
+                outs, backs = await bus_trips(t, config.settings.home, bus_search, flex)
+                entries[t.id] = summarise_bus(t, outs, backs, now_local(), flex=flex)
+            else:
+                res = await search(Query(t.destination, t.out, t.back, flex=flex, top=20), config)
+                entries[t.id] = summarise(t, res, now_local(), flex=flex)
             searched.append(t.id)
         except Exception as exc:  # keep the last good result; note the error
             prev = entries.get(t.id) or {"title": t.title, **t.key, "best": [], "grid": []}

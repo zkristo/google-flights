@@ -5,6 +5,7 @@ import json
 from datetime import date, datetime, timedelta
 
 from conftest import bus, dt, flight
+from zagflights.models import BusRide
 
 from zagflights import cli
 from zagflights import events as ev
@@ -35,14 +36,19 @@ def test_targets_picks_upcoming_in_person_events_with_airports():
         event("no-airports", "2026-11-06", airports=None),
         event("ok", "2026-11-06T18:00+01:00", "2026-11-09", airports=("ath", "gpa", "nonsense")),
         event("one-day", "2026-11-20"),
+        event("by-bus", "2026-11-04", "2026-11-08", airports=None, bus=" Ljubljana "),
+        event("both", "2026-11-04", airports=("LJU",), bus="Ljubljana"),
     ], TODAY, horizon_days=180)
-    assert [t.id for t in found] == ["ok", "one-day"]
+    assert [t.id for t in found] == ["ok", "one-day", "by-bus", "both"]
+    assert found[2].bus == "Ljubljana" and found[2].destination == "bus:Ljubljana" and found[2].airports == ()
+    assert found[3].bus is None and found[3].destination == "LJU"  # airports win: buses to hubs are searched anyway
+    found = found[:2]
     ok, one = found
     assert ok.airports == ("ATH", "GPA") and ok.destination == "ATH,GPA"
     assert (ok.out, ok.back) == (date(2026, 11, 6), date(2026, 11, 9))
     assert one.back == one.out == date(2026, 11, 20)
     assert ok.key == {"destination": "ATH,GPA", "out": "2026-11-06", "back": "2026-11-09", "format": ev.FORMAT}
-    assert skipped == [("no-airports", "no airports field")]
+    assert skipped == [("no-airports", "no airports or bus field")]
 
 
 def _legs(config) -> dict[str, Leg]:
@@ -177,7 +183,7 @@ def test_refresh_searches_keeps_fresh_and_redoes_stale(tmp_path, config, monkeyp
     search = FakeSearch(_plan(config))
     report = _run(tmp_path, config, search, limit=2)
     assert len(search.calls) == 2 and search.calls[0][3] == 1  # ±1 day around the event's dates
-    assert report["pending"] and report["written"] and report["skipped"] == [("bus-only", "no airports field")]
+    assert report["pending"] and report["written"] and report["skipped"] == [("bus-only", "no airports or bus field")]
     data = json.loads((tmp_path / "flights.json").read_text(encoding="utf-8"))
     assert data["origin"] == "Zagreb" and data["updatedAt"] == "2026-10-12T19:00+02:00"
     assert len(data["events"]) == 2 and data["events"][report["searched"][0]]["best"][0]["total"] == 85
@@ -231,3 +237,78 @@ def test_cli_events_command(tmp_path, config, monkeypatch):
     out = tmp_path / "flights.json"
     assert cli.main(["events", str(tmp_path / "events.json"), "--out", str(out)]) == 0
     assert json.loads(out.read_text(encoding="utf-8"))["events"]["a"]["best"][0]["total"] == 85
+
+
+# ------------------------------------------------------------------ bus-only events
+
+LJ = ev.Target("cel", "CE Ljubljana", (), date(2026, 11, 4), date(2026, 11, 8), bus="Ljubljana")
+
+
+def ride(frm, to, dep, arr, price, changes=0):
+    return BusRide(uid=f"{frm}{dep}", from_city=frm, to_city=to, from_station=frm, to_station=to,
+                   departure=dt(dep), arrival=dt(arr), price=price, transfers=changes, booking_url="https://flix.test")
+
+
+OUTS = [
+    ride("Zagreb", "Ljubljana", "2026-11-03T22:00", "2026-11-04T00:20", 9.99),  # leaves the evening before
+    ride("Zagreb", "Ljubljana", "2026-11-04T02:00", "2026-11-04T04:20", 12.99),  # night ride on the day
+    ride("Zagreb", "Ljubljana", "2026-11-04T08:00", "2026-11-04T10:20", 12.99),
+    ride("Zagreb", "Ljubljana", "2026-11-04T15:00", "2026-11-04T17:20", 14.99),
+    ride("Zagreb", "Ljubljana", "2026-11-03T08:00", "2026-11-03T10:20", 7.99),  # a day early
+    ride("Zagreb", "Ljubljana", "2026-11-01T08:00", "2026-11-01T10:20", 1.99),  # three days early: ignored
+]
+BACKS = [
+    ride("Ljubljana", "Zagreb", "2026-11-08T12:00", "2026-11-08T14:20", 11.99),
+    ride("Ljubljana", "Zagreb", "2026-11-08T18:00", "2026-11-08T20:20", 11.99),
+    ride("Ljubljana", "Zagreb", "2026-11-09T10:00", "2026-11-09T12:20", 6.99),  # a day late
+]
+
+
+def test_summarise_bus_prefers_daytime_on_the_event_dates():
+    entry = ev.summarise_bus(LJ, OUTS, BACKS, NOW)
+    assert entry["mode"] == "bus" and entry["destination"] == "bus:Ljubljana" and entry["baseline"] is None
+    best = entry["best"][0]
+    assert best["total"] == 24.98  # €12.99 + €11.99
+    assert best["out"]["steps"][0]["dep"] == "2026-11-04T08:00"  # same price as the 02:00 night bus, but daytime
+    assert best["back"]["steps"][0]["dep"] == "2026-11-08T18:00"  # same price, leaves later
+    assert best["out"]["mode"] == "bus" and best["out"]["airport"] == "Ljubljana" and best["out"]["wait"] is None
+    assert [s["kind"] for s in best["out"]["steps"]] == ["bus"] and best["nights"] == 4
+    # one option per outbound bus; the 02:00 night bus ranks behind the dearer 15:00 one
+    assert [(t["out"]["steps"][0]["dep"][11:], t["back"]["steps"][0]["dep"][11:], t["total"]) for t in entry["best"]] == [
+        ("08:00", "18:00", 24.98), ("15:00", "18:00", 26.98), ("02:00", "18:00", 24.98)]
+    alt = entry["alternative"]  # arrive a day early and leave a day late, within ±1 day only
+    assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (14.98, -1, 1, 10.0)
+    assert {"out": "2026-11-03", "back": "2026-11-09", "total": 14.98} in entry["grid"]
+    json.dumps(entry)
+
+
+def test_summarise_bus_without_rides():
+    entry = ev.summarise_bus(LJ, [], [], NOW)
+    assert entry["best"] == [] and entry["alternative"] is None and len(entry["warnings"]) == 2
+
+
+def test_refresh_prices_bus_events(tmp_path, config, monkeypatch):
+    monkeypatch.setattr(ev, "now_local", lambda: NOW)
+    _write_events(tmp_path / "events.json", [event("cel", "2026-11-04", "2026-11-08", airports=None, bus="Ljubljana")])
+    calls = []
+
+    async def bus_search(frm, to, day):
+        calls.append((frm, to, day))
+        return [r for r in OUTS + BACKS if r.from_city == frm and r.departure.date() == day]
+
+    async def no_flights(q, cfg):
+        raise AssertionError("bus events must not search flights")
+
+    report = _run(tmp_path, config, no_flights, bus_search=bus_search)
+    assert report["searched"] == ["cel"]
+    assert {c[:2] for c in calls} == {("Zagreb", "Ljubljana"), ("Ljubljana", "Zagreb")}
+    assert min(c[2] for c in calls) == date(2026, 11, 2) and max(c[2] for c in calls) == date(2026, 11, 9)
+    data = json.loads((tmp_path / "flights.json").read_text(encoding="utf-8"))
+    assert data["events"]["cel"]["best"][0]["total"] == 24.98
+
+    # without a bus search the old prices stay and the error is noted
+    monkeypatch.setattr(ev, "now_local", lambda: NOW + timedelta(hours=21))
+    report = _run(tmp_path, config, no_flights)
+    data = json.loads((tmp_path / "flights.json").read_text(encoding="utf-8"))
+    assert report["failed"] == ["cel"] and "no bus search" in data["events"]["cel"]["lastError"]
+    assert data["events"]["cel"]["best"][0]["total"] == 24.98
