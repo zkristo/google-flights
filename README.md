@@ -71,6 +71,23 @@ zagflights serve          # → http://127.0.0.1:8000
 
 Same search as the CLI, with a form, result cards, booking links, the date grid and a per-airport summary. There is also a JSON endpoint: `/api/search?dest=ATH&out=2026-11-10&back=2026-11-15&flex=2`.
 
+### Events (BEST Calendar)
+
+```bash
+zagflights events data/events.json --out data/flights.json
+```
+
+Prices the cheapest trip to every upcoming event in a [BEST Calendar](https://github.com/zkristo/best-calendar) `events.json` and writes `flights.json`, which the calendar site shows in each event's details. The calendar's hourly routine runs it.
+
+- **Which events:** in-person events with an `airports` list (e.g. `["ATH"]` or `["BRU", "CRL"]`), starting tomorrow or later. Deadlines, online events and events without airports are skipped.
+- **Which dates:**
+  - Main result: fly out on the event's first day, landing that day, and fly home on its last day. Up to 3 options are kept.
+  - Second option, always saved as `alternative`: the cheapest trip that is a day off (`--flex`, default ±1), e.g. arriving a day late or leaving a day early. It includes how many days it shifts the arrival and departure, and how much cheaper (or dearer) it is than the main option.
+  - Also saved: the price grid by date and the "fly from Zagreb" baseline.
+- **How often:** an event is searched again when its prices are older than `--max-age-hours` (20) or its dates or airports changed. At most `--limit` (4) events are searched per run, stalest first, so a run stays short. Events beyond `--horizon-days` (180) wait.
+- **Failures:** if a search fails, the previous prices are kept with a `lastError` note. Past events are dropped.
+- **No-op runs:** if nothing changed, the file isn't rewritten, so there is nothing to commit.
+
 ## Customise the airports
 
 ```bash
@@ -132,4 +149,5 @@ Tests cover:
 - the planner rules: timing, overnight, open-jaw pairing, pruning, wait cost, first hops, direct pricing;
 - the parsers and merging, on recorded Kiwi, FlixBus, Ryanair, Wizz and ECB responses;
 - the HTTP clients (mocked);
-- the CLI and web page.
+- the CLI and web page;
+- the BEST Calendar batch mode (`events`).
