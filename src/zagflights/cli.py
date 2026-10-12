@@ -60,6 +60,14 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--no-cache", action="store_true", help="ignore cached prices")
     s.add_argument("--json", action="store_true", help="machine-readable output")
 
+    ev = sub.add_parser("events", help="cheapest trip to each upcoming event in a BEST Calendar events.json")
+    ev.add_argument("events_file", help="path to the calendar's data/events.json")
+    ev.add_argument("--out", required=True, help="where to write flights.json")
+    ev.add_argument("--max-age-hours", type=float, default=20, help="re-search events whose prices are older than this (default 20)")
+    ev.add_argument("--limit", type=int, default=4, help="at most this many searches per run (default 4)")
+    ev.add_argument("--horizon-days", type=int, default=180, help="only events starting within this many days (default 180)")
+    ev.add_argument("--flex", type=int, default=1, help="also price ±N days for the date grid (default 1)")
+
     sub.add_parser("hubs", help="list the airports and how you get there")
     sub.add_parser("init-config", help=f"copy the default hubs.toml to {USER_CONFIG} for editing")
 
@@ -222,6 +230,30 @@ def cmd_search(args, console: Console) -> int:
     return 0 if res.trips else 1
 
 
+def cmd_events(args, console: Console) -> int:
+    from pathlib import Path
+
+    from .events import refresh
+
+    config = load_config(args.config)
+
+    async def search(q, cfg):
+        return await find_trips(q, cfg)
+
+    report = asyncio.run(refresh(Path(args.events_file), Path(args.out), config, search,
+                                 max_age_hours=args.max_age_hours, limit=args.limit,
+                                 horizon_days=args.horizon_days, flex=args.flex,
+                                 progress=lambda m: console.print(m, highlight=False)))
+    console.print(f"Searched {len(report['searched'])}, failed {len(report['failed'])}, "
+                  f"kept {report['kept']} up-to-date, {len(report['pending'])} left for the next run."
+                  + ("" if report["written"] else f" {args.out} unchanged."))
+    for event_id, reason in report["skipped"]:
+        console.print(f"[yellow]Skipped {event_id}: {reason}[/]")
+    for event_id in report["failed"]:
+        console.print(f"[red]Search failed for {event_id}[/] (previous prices kept)")
+    return 1 if report["failed"] and not report["searched"] else 0
+
+
 def cmd_hubs(args, console: Console) -> int:
     config = load_config(args.config)
     s = config.settings
@@ -269,7 +301,8 @@ def cmd_serve(args, console: Console) -> int:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     console = Console()
-    handlers = {"search": cmd_search, "hubs": cmd_hubs, "init-config": cmd_init_config, "serve": cmd_serve}
+    handlers = {"search": cmd_search, "events": cmd_events, "hubs": cmd_hubs, "init-config": cmd_init_config,
+                "serve": cmd_serve}
     try:
         return handlers[args.cmd](args, console)
     except ValueError as exc:
