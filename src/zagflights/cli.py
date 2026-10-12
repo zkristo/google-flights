@@ -237,13 +237,20 @@ def cmd_events(args, console: Console) -> int:
 
     config = load_config(args.config)
 
+    from .cache import DEFAULT_DIR, Cache
+    from .providers.flixbus import FlixBusClient
+
     async def search(q, cfg):
         return await find_trips(q, cfg)
 
-    report = asyncio.run(refresh(Path(args.events_file), Path(args.out), config, search,
+    async def run():
+        async with FlixBusClient(cache=Cache(DEFAULT_DIR)) as flix:
+            return await refresh(Path(args.events_file), Path(args.out), config, search, bus_search=flix.search,
                                  max_age_hours=args.max_age_hours, limit=args.limit,
                                  horizon_days=args.horizon_days, flex=args.flex,
-                                 progress=lambda m: console.print(m, highlight=False)))
+                                 progress=lambda m: console.print(m, highlight=False))
+
+    report = asyncio.run(run())
     console.print(f"Searched {len(report['searched'])}, failed {len(report['failed'])}, "
                   f"kept {report['kept']} up-to-date, {len(report['pending'])} left for the next run."
                   + ("" if report["written"] else f" {args.out} unchanged."))
