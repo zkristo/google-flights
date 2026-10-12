@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if q %}Zagreb ⇄ {{ q.destination }} · {% endif %}zagflights</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #1c2330; --muted: #667085; --line: #e3e6eb;
+    --accent: #1f6feb; --good: #13804b; --good-bg: #e7f6ee; --warn: #9a6700; --warn-bg: #fff6d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1218; --card: #171b23; --ink: #e6e9ef; --muted: #98a2b3; --line: #2a303b;
+            --accent: #5b9bff; --good: #4cc38a; --good-bg: #13261c; --warn: #e3b341; --warn-bg: #2b2412; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 18px; }
+  form.search { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  input, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+  input[type=text] { width: 150px; } input[type=number] { width: 80px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--ink); }
+  .checks label { display: flex; align-items: center; gap: 5px; color: var(--ink); font-size: 14px; }
+  button { font: inherit; font-weight: 600; background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 18px; cursor: pointer; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+  .msg { border-radius: 10px; padding: 10px 14px; margin: 14px 0; }
+  .err { background: #fde8e8; color: #9b1c1c; } .warn { background: var(--warn-bg); color: var(--warn); font-size: 13px; }
+  .saving { background: var(--good-bg); color: var(--good); font-weight: 600; }
+  .trip { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin: 12px 0; overflow: hidden; }
+  .trip-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .total { font-size: 20px; font-weight: 700; color: var(--good); }
+  .rank { color: var(--muted); font-weight: 600; margin-right: 8px; }
+  .legs { display: grid; grid-template-columns: 1fr 1fr; }
+  .leg { padding: 10px 14px; min-width: 0; }
+  .leg + .leg { border-left: 1px solid var(--line); }
+  .leg h3 { margin: 0 0 6px; font-size: 14px; display: flex; justify-content: space-between; gap: 8px; }
+  .leg h3 .price { color: var(--muted); font-weight: 600; }
+  .step { margin: 3px 0; overflow-wrap: anywhere; }
+  .wait { color: var(--muted); font-size: 13px; }
+  .links a { font-size: 13px; margin-right: 12px; color: var(--accent); }
+  @media (max-width: 720px) { .legs { grid-template-columns: 1fr; } .leg + .leg { border-left: 0; border-top: 1px solid var(--line); } }
+  h2 { font-size: 16px; margin: 26px 0 8px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; font-size: 14px; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  td.best { color: var(--good); font-weight: 700; }
+  .foot { color: var(--muted); font-size: 12px; margin-top: 24px; }
+  #loading { display: none; position: fixed; inset: 0; background: color-mix(in srgb, var(--bg) 80%, transparent); place-items: center; font-size: 17px; }
+  #loading.on { display: grid; }
+</style>
+</head>
+<body>
+<main>
+  <h1>✈️🚌 zagflights</h1>
+  <p class="sub">Cheapest door-to-door trips from Zagreb: take a bus to a nearby airport, fly, and come back via any airport.</p>
+
+  <form class="search" method="get" action="/" onsubmit="document.getElementById('loading').classList.add('on')">
+    <div class="row">
+      <label>Destination <input type="text" name="dest" value="{{ form.dest }}" placeholder="ATH or Athens" required></label>
+      <label>Outbound <input type="date" name="out" value="{{ form.out }}" required></label>
+      <label>Return <input type="date" name="back" value="{{ form.back }}" required></label>
+      <label>± days
+        <select name="flex">{% for n in range(0, 4) %}<option value="{{ n }}" {% if form.flex == n %}selected{% endif %}>±{{ n }}</option>{% endfor %}</select>
+      </label>
+      <label>Adults <input type="number" name="adults" min="1" max="9" value="{{ form.adults }}"></label>
+      <button type="submit">Search</button>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" name="direct" value="1" {% if form.direct %}checked{% endif %}> Non-stop only</label>
+      <label><input type="checkbox" name="cabin_bag" value="1" {% if form.cabin_bag %}checked{% endif %}> Cabin bag</label>
+      <label><input type="checkbox" name="checked_bag" value="1" {% if form.checked_bag %}checked{% endif %}> Checked bag</label>
+      <label><input type="checkbox" name="airline_direct" value="1" {% if form.airline_direct %}checked{% endif %}> Check Ryanair &amp; Wizz Air prices directly</label>
+    </div>
+    <details {% if not res %}open{% endif %}>
+      <summary>Airports &amp; waiting rules</summary>
+      <div class="checks" style="margin-top:8px">
+        {% for h in form.hubs %}
+        <label><input type="checkbox" name="hub" value="{{ h.code }}" {% if h.code in form.selected %}checked{% endif %}> {{ h.code }} {{ h.name }}</label>
+        {% endfor %}
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label>Max wait bus ⇄ flight (h) <input type="number" step="0.5" name="max_wait" value="{{ form.max_wait }}"></label>
+        <label>Overnight wait penalty (€) <input type="number" step="1" name="overnight_cost" value="{{ form.overnight_cost }}"></label>
+        <label>Value of waiting (€/h beyond 3h) <input type="number" step="0.5" name="wait_cost" value="{{ form.wait_cost }}"></label>
+        <label>Fly-first hops from ZAG under (€, 0 = off) <input type="number" step="5" name="hop_max" value="{{ form.hop_max }}"></label>
+      </div>
+    </details>
+  </form>
+
+  {% if error %}<div class="msg err">{{ error }}</div>{% endif %}
+
+  {% if res %}
+    {% for w in res.warnings %}<div class="msg warn">⚠ {{ w }}</div>{% endfor %}
+
+    {% if not res.trips %}
+      <div class="msg err">No complete trips found. Try ± days, more airports, or other dates.</div>
+    {% else %}
+      {% set best = res.trips[0] %}
+      {% if res.baseline and res.baseline is not sameas best and res.baseline.total > best.total %}
+        <div class="msg saving">Best combo {{ fmt.money(best.total) }} vs {{ fmt.money(res.baseline.total) }} flying from/to Zagreb only · you save {{ fmt.money(res.baseline.total - best.total) }}</div>
+      {% elif res.baseline is sameas best %}
+        <div class="msg saving">The cheapest option is simply flying from/to Zagreb.</div>
+      {% endif %}
+
+      {% for t in res.trips %}
+      <section class="trip">
+        <div class="trip-head">
+          <div><span class="rank">#{{ loop.index }}</span><strong>{{ t.out.hub.label }} → {{ q.destination }} → {{ t.back.hub.label }}</strong>
+            <span class="wait"> · {{ fmt.day(t.out.flight.departure) }} – {{ fmt.day(t.back.flight.departure) }} · {{ t.nights }} night{{ "s" if t.nights != 1 else "" }}</span></div>
+          <div class="total">{{ fmt.money(t.total) }}</div>
+        </div>
+        <div class="legs">
+          {% for leg in [t.out, t.back] %}
+          <div class="leg">
+            <h3><span>{{ 'Outbound' if leg.direction == 'out' else 'Return' }} · {{ fmt.day(leg.flight.departure) }} · {{ leg.hub.name }}</span><span class="price">{{ fmt.money(leg.total) }}</span></h3>
+            {% for line in fmt.leg_lines(leg)[1:] %}
+              <div class="step {% if line.startswith('⏱') %}wait{% endif %}">{{ line }}</div>
+            {% endfor %}
+            <div class="links">
+              {% set sites = {'ryanair': 'Ryanair', 'wizz': 'Wizz Air', 'kiwi': 'Kiwi.com'} %}
+              {% if leg.bus and leg.direction == 'out' %}<a href="{{ leg.bus.booking_url }}" target="_blank" rel="noopener">Bus on FlixBus ↗</a>{% endif %}
+              {% if leg.hop and leg.direction == 'out' %}<a href="{{ leg.hop.booking_url }}" target="_blank" rel="noopener">Hop {{ leg.hop.origin }}→{{ leg.hop.destination }} on {{ sites[leg.hop.source] }} ↗</a>{% endif %}
+              <a href="{{ leg.flight.booking_url }}" target="_blank" rel="noopener">Flight on {{ sites[leg.flight.source] }} ↗</a>
+              {% if leg.hop and leg.direction == 'back' %}<a href="{{ leg.hop.booking_url }}" target="_blank" rel="noopener">Hop {{ leg.hop.origin }}→{{ leg.hop.destination }} on {{ sites[leg.hop.source] }} ↗</a>{% endif %}
+              {% if leg.bus and leg.direction == 'back' %}<a href="{{ leg.bus.booking_url }}" target="_blank" rel="noopener">Bus on FlixBus ↗</a>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% endfor %}
+
+      {% if matrix %}
+      <h2>Cheapest total by date</h2>
+      <div class="scroll"><table>
+        <tr><th>Out ↓ / Back →</th>{% for b in matrix.backs %}<th>{{ fmt.day(b) }}</th>{% endfor %}</tr>
+        {% for o in matrix.outs %}
+        <tr><td>{{ fmt.day(o) }}</td>
+          {% for b in matrix.backs %}{% set v = matrix.cells.get((o, b)) %}
+          <td class="{% if v == matrix.min %}best{% endif %}">{{ fmt.money(v) if v is not none else '' }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table></div>
+      {% endif %}
+
+      <h2>Best leg per airport</h2>
+      <div class="scroll"><table>
+        <tr><th>Airport</th><th>Outbound (getting there + flight)</th><th>Return (flight + getting home)</th></tr>
+        {% set labels = (res.best_out_by_hub.keys() | list) + (res.best_back_by_hub.keys() | list) %}
+        {% for label in labels | unique %}
+          {% set o = res.best_out_by_hub.get(label) %}{% set b = res.best_back_by_hub.get(label) %}{% set h = (o or b).hub %}
+          <tr><td>{{ h.code }} {{ h.name }}{% if h.via_flight %} <span class="wait">(fly there)</span>{% endif %}</td>
+            <td>{% if o %}{{ fmt.money(o.total) }} · {{ fmt.day(o.flight.departure) }}{% else %}–{% endif %}</td>
+            <td>{% if b %}{{ fmt.money(b.total) }} · {{ fmt.day(b.flight.departure) }}{% else %}–{% endif %}</td></tr>
+        {% endfor %}
+      </table></div>
+    {% endif %}
+  {% endif %}
+
+  <p class="foot">Prices are live snapshots from Kiwi.com, Ryanair and Wizz Air (flights) and FlixBus (buses) and change quickly. ≈ marks an estimated arrival time. Separate tickets mean no protection if one leg is late. Bus ⇄ terminal transfer times and costs are estimates from hubs.toml.</p>
+</main>
+<div id="loading">Searching flights and buses… (~20 s)</div>
+</body>
+</html>
