@@ -140,15 +140,21 @@ def _back_on_time(leg: Leg, target: Target) -> bool:
     return leg.flight.departure.date() == target.back
 
 
-def summarise(target: Target, res: PlanResult, searched_at: datetime) -> dict:
-    """The event's entry in flights.json: the best trips for the event's dates, plus the best ±N day alternative."""
+def summarise(target: Target, res: PlanResult, searched_at: datetime, flex: int = 1) -> dict:
+    """The event's entry in flights.json: the best trips for the event's dates, plus the best ±`flex` day alternative."""
     out_ok = [leg for leg in res.out_legs if _out_on_time(leg, target)]
     back_ok = [leg for leg in res.back_legs if _back_on_time(leg, target)]
     primary = combine(Query(target.destination, target.out, target.back, top=OPTIONS), out_ok, back_ok)
     best = primary.trips
-    # the cheapest trip that misses the event's dates by a day (arrive later, leave earlier, …): always shown
+    # the cheapest trip that misses the event's dates by up to `flex` days (arrive a day late, leave a day
+    # early, …): always shown, even when dearer
+    def near(o: Leg, b: Leg) -> bool:
+        return (abs((o.flight.arrival.date() - target.out).days) <= flex
+                and abs((b.flight.departure.date() - target.back).days) <= flex)
+
     others = [Trip(o, b) for o in res.out_legs for b in res.back_legs
-              if b.flight.departure > o.flight.arrival and not (_out_on_time(o, target) and _back_on_time(b, target))]
+              if b.flight.departure > o.flight.arrival and near(o, b)
+              and not (_out_on_time(o, target) and _back_on_time(b, target))]
     alt = min(others, key=lambda t: (t.total, t.score)) if others else None
     alternative = None
     if alt:
@@ -220,7 +226,7 @@ async def refresh(
         q = Query(t.destination, t.out, t.back, flex=flex, top=20)
         try:
             res = await search(q, config)
-            entries[t.id] = summarise(t, res, now_local())
+            entries[t.id] = summarise(t, res, now_local(), flex=flex)
             searched.append(t.id)
         except Exception as exc:  # keep the last good result; note the error
             prev = entries.get(t.id) or {"title": t.title, **t.key, "best": [], "grid": []}

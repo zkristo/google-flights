@@ -107,7 +107,8 @@ def test_summarise_without_matching_trips(config):
     target = ev.Target("x", "X", ("ATH",), date(2026, 11, 7), date(2026, 11, 7))
     entry = ev.summarise(target, _plan(config), NOW)
     assert entry["best"] == []
-    assert entry["alternative"]["total"] == 31 and entry["alternative"]["saving"] is None
+    alt = entry["alternative"]  # flies the evening before, lands on the day; the 31 trip is two days early
+    assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (36, 0, 1, None)
 
 
 TOMATO = ev.Target("ok", "aRM Tomato", ("ATH",), date(2026, 11, 6), date(2026, 11, 9))
@@ -126,6 +127,17 @@ def test_alternative_is_always_included_even_when_dearer(config):
     entry = ev.summarise(TOMATO, _plan(config, ("out_bus", "back_bus", "back_late")), NOW)
     alt = entry["alternative"]
     assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (123, 0, 1, -38)
+
+
+def test_alternative_stays_within_a_day(config):
+    legs = _legs(config)
+    two_late = Leg("out", config.hubs["ZAG"], flight("ZAG", "ATH", "2026-11-07T22:00", "2026-11-08T00:30", 1), None, None,
+                   8, 45, timedelta(0), False)  # lands two days after the event starts
+    res = combine(Query("ATH", date(2026, 11, 6), date(2026, 11, 9), flex=1),
+                  [legs["out_bus"], legs["out_late"], two_late], [legs["back_bus"]])
+    alt = ev.summarise(TOMATO, res, NOW)["alternative"]
+    assert (alt["total"], alt["arriveShift"]) == (68, 1)
+    assert ev.summarise(TOMATO, res, NOW, flex=2)["alternative"]["arriveShift"] == 2
 
 
 def test_no_alternative_without_other_dates(config):
