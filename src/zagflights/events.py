@@ -27,7 +27,8 @@ from .planner import Query, combine
 
 TZ = ZoneInfo("Europe/Zagreb")
 SKIP_TAGS = {"deadline"}
-OPTIONS = 3  # trips shown per event
+OPTIONS = 3  # trips kept for the event's own dates
+FORMAT = 2  # bump when the entry shape changes, so older entries are searched again
 
 
 def now_local() -> datetime:
@@ -62,7 +63,8 @@ class Target:
     @property
     def key(self) -> dict:
         """What the cached result depends on; a change forces a new search."""
-        return {"destination": self.destination, "out": self.out.isoformat(), "back": self.back.isoformat()}
+        return {"destination": self.destination, "out": self.out.isoformat(), "back": self.back.isoformat(),
+                "format": FORMAT}
 
 
 def targets(events: list[dict], today: date, horizon_days: int) -> tuple[list[Target], list[tuple[str, str]]]:
@@ -129,21 +131,40 @@ def trip_json(t: Trip) -> dict:
     return {"total": t.total, "nights": t.nights, "out": leg_json(t.out), "back": leg_json(t.back)}
 
 
+def _out_on_time(leg: Leg, target: Target) -> bool:
+    """Flies out on the event's first day and lands that day."""
+    return leg.flight.departure.date() == target.out and leg.flight.arrival.date() <= target.out
+
+
+def _back_on_time(leg: Leg, target: Target) -> bool:
+    return leg.flight.departure.date() == target.back
+
+
 def summarise(target: Target, res: PlanResult, searched_at: datetime) -> dict:
-    """The event's entry in flights.json."""
-    out_ok = [leg for leg in res.out_legs
-              if leg.flight.departure.date() == target.out and leg.flight.arrival.date() <= target.out]
-    back_ok = [leg for leg in res.back_legs if leg.flight.departure.date() == target.back]
+    """The event's entry in flights.json: the best trips for the event's dates, plus the best ±N day alternative."""
+    out_ok = [leg for leg in res.out_legs if _out_on_time(leg, target)]
+    back_ok = [leg for leg in res.back_legs if _back_on_time(leg, target)]
     primary = combine(Query(target.destination, target.out, target.back, top=OPTIONS), out_ok, back_ok)
     best = primary.trips
-    flexible = res.trips[0] if res.trips and (not best or res.trips[0].total < best[0].total) else None
+    # the cheapest trip that misses the event's dates by a day (arrive later, leave earlier, …): always shown
+    others = [Trip(o, b) for o in res.out_legs for b in res.back_legs
+              if b.flight.departure > o.flight.arrival and not (_out_on_time(o, target) and _back_on_time(b, target))]
+    alt = min(others, key=lambda t: (t.total, t.score)) if others else None
+    alternative = None
+    if alt:
+        alternative = {
+            **trip_json(alt),
+            "arriveShift": (alt.out.flight.arrival.date() - target.out).days,
+            "leaveShift": (alt.back.flight.departure.date() - target.back).days,
+            "saving": round(best[0].total - alt.total, 2) if best else None,
+        }
     return {
         "title": target.title,
         **target.key,
         "searchedAt": iso_local(searched_at),
         "best": [trip_json(t) for t in best],
+        "alternative": alternative,
         "baseline": primary.baseline.total if primary.baseline else None,
-        "cheapestFlexible": trip_json(flexible) if flexible else None,
         "grid": [{"out": o.isoformat(), "back": b.isoformat(), "total": v} for (o, b), v in sorted(res.date_matrix.items())],
         "warnings": res.warnings,
     }

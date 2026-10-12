@@ -41,11 +41,11 @@ def test_targets_picks_upcoming_in_person_events_with_airports():
     assert ok.airports == ("ATH", "GPA") and ok.destination == "ATH,GPA"
     assert (ok.out, ok.back) == (date(2026, 11, 6), date(2026, 11, 9))
     assert one.back == one.out == date(2026, 11, 20)
-    assert ok.key == {"destination": "ATH,GPA", "out": "2026-11-06", "back": "2026-11-09"}
+    assert ok.key == {"destination": "ATH,GPA", "out": "2026-11-06", "back": "2026-11-09", "format": ev.FORMAT}
     assert skipped == [("no-airports", "no airports field")]
 
 
-def _plan(config):
+def _legs(config) -> dict[str, Leg]:
     """Out on 6 Nov, back on 9 Nov, with cheaper options that miss the event's days."""
     zag, bud, vce = config.hubs["ZAG"], config.hubs["BUD"], config.hubs["VCE"]
     bgy = Hub("BGY", "Bergamo", via_flight=True)
@@ -64,18 +64,27 @@ def _plan(config):
                    vce.stops[0], 20, 5, timedelta(hours=5, minutes=30), True)
     back_early = Leg("back", zag, flight("ATH", "ZAG", "2026-11-08T10:00", "2026-11-08T12:00", 10), None, None,
                      8, 45, timedelta(0), False)
+    back_late = Leg("back", zag, flight("ATH", "ZAG", "2026-11-10T10:00", "2026-11-10T12:00", 80), None, None,
+                    8, 45, timedelta(0), False)
+    return dict(out_bus=out_bus, out_hop=out_hop, out_late=out_late, out_early=out_early,
+                back_bus=back_bus, back_early=back_early, back_late=back_late)
+
+
+def _plan(config, names=("out_bus", "out_hop", "out_late", "out_early", "back_bus", "back_early")):
+    legs = _legs(config)
     q = Query("ATH", date(2026, 11, 6), date(2026, 11, 9), flex=1, top=20)
-    return combine(q, [out_bus, out_hop, out_late, out_early], [back_bus, back_early])
+    return combine(q, [legs[n] for n in names if n.startswith("out")], [legs[n] for n in names if n.startswith("back")])
 
 
-def test_summarise_keeps_event_dates_and_offers_flexible(config):
+def test_summarise_keeps_event_dates_and_adds_alternative(config):
     target = ev.Target("ok", "aRM Tomato", ("ATH",), date(2026, 11, 6), date(2026, 11, 9))
     entry = ev.summarise(target, _plan(config), NOW)
     assert entry["destination"] == "ATH" and entry["out"] == "2026-11-06" and entry["back"] == "2026-11-09"
     assert entry["searchedAt"] == "2026-10-12T19:00+02:00"
     assert [t["total"] for t in entry["best"]] == [85, 98]  # bus via BUD, then the BGY hop; both back via VCE
     assert entry["baseline"] is None  # no ZAG flight fits the event's days
-    assert entry["cheapestFlexible"]["total"] == 31  # out 5 Nov, back 8 Nov
+    alt = entry["alternative"]  # arrive a day early and leave a day early, €54 cheaper
+    assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (31, -1, -1, 54)
     assert {"out": "2026-11-05", "back": "2026-11-08", "total": 31} in entry["grid"]
 
     best = entry["best"][0]
@@ -97,7 +106,31 @@ def test_summarise_keeps_event_dates_and_offers_flexible(config):
 def test_summarise_without_matching_trips(config):
     target = ev.Target("x", "X", ("ATH",), date(2026, 11, 7), date(2026, 11, 7))
     entry = ev.summarise(target, _plan(config), NOW)
-    assert entry["best"] == [] and entry["cheapestFlexible"]["total"] == 31
+    assert entry["best"] == []
+    assert entry["alternative"]["total"] == 31 and entry["alternative"]["saving"] is None
+
+
+TOMATO = ev.Target("ok", "aRM Tomato", ("ATH",), date(2026, 11, 6), date(2026, 11, 9))
+
+
+def test_alternative_arriving_a_day_late(config):
+    # the only cheaper option lands after midnight, i.e. on the event's second day
+    entry = ev.summarise(TOMATO, _plan(config, ("out_bus", "out_late", "back_bus")), NOW)
+    alt = entry["alternative"]
+    assert [t["total"] for t in entry["best"]] == [85]
+    assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (68, 1, 0, 17)
+    assert alt["out"]["steps"][-1]["arr"] == "2026-11-07T00:30"
+
+
+def test_alternative_is_always_included_even_when_dearer(config):
+    entry = ev.summarise(TOMATO, _plan(config, ("out_bus", "back_bus", "back_late")), NOW)
+    alt = entry["alternative"]
+    assert (alt["total"], alt["arriveShift"], alt["leaveShift"], alt["saving"]) == (123, 0, 1, -38)
+
+
+def test_no_alternative_without_other_dates(config):
+    entry = ev.summarise(TOMATO, _plan(config, ("out_bus", "back_bus")), NOW)
+    assert [t["total"] for t in entry["best"]] == [85] and entry["alternative"] is None
 
 
 class FakeSearch:

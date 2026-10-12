@@ -82,7 +82,8 @@ Prices the cheapest trip to every upcoming event in a [BEST Calendar](https://gi
 - **Which events:** in-person events with an `airports` list (e.g. `["ATH"]` or `["BRU", "CRL"]`), starting tomorrow or later. Deadlines, online events and events without airports are skipped.
 - **Which dates:**
   - Main result: fly out on the event's first day, landing that day, and fly home on its last day. Up to 3 options are kept.
-  - Also searched: ±1 day (`--flex`). A cheaper date pair is saved as `cheapestFlexible`, together with the price grid and the "fly from Zagreb" baseline.
+  - Second option, always saved as `alternative`: the cheapest trip that is a day off (`--flex`, default ±1), e.g. arriving a day late or leaving a day early. It includes how many days it shifts the arrival and departure, and how much cheaper (or dearer) it is than the main option.
+  - Also saved: the price grid by date and the "fly from Zagreb" baseline.
 - **How often:** an event is searched again when its prices are older than `--max-age-hours` (20) or its dates or airports changed. At most `--limit` (4) events are searched per run, stalest first, so a run stays short. Events beyond `--horizon-days` (180) wait.
 - **Failures:** if a search fails, the previous prices are kept with a `lastError` note. Past events are dropped.
 - **No-op runs:** if nothing changed, the file isn't rewritten, so there is nothing to commit.
