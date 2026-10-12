@@ -1,0 +1,74 @@
+# Airports you are willing to fly from / back to, and how you get there from home.
+#
+# Copy this file to ~/.config/zagflights/hubs.toml (or pass --config PATH) to customise it.
+# Transfer times/costs are estimates for getting between the FlixBus stop and the airport
+# terminal — tweak them to match how you actually travel.
+
+[settings]
+home = "Zagreb"            # FlixBus city you start from and return to
+checkin_buffer_min = 120   # be at the departure airport this long before take-off
+arrival_buffer_min = 45    # time from landing until you are out of the airport
+max_wait_hours = 20        # longest wait between bus and flight (overnight waits allowed)
+overnight_cost = 0         # € added when a wait runs through the night (hostel, airport bench...)
+wait_cost_per_hour = 0     # value of your time: € per hour of waiting beyond free_wait_hours.
+                           # Only affects which option wins; shown prices stay real money.
+free_wait_hours = 3
+
+# The home airport: no long-distance bus, just a transfer from home to the terminal.
+[hubs.ZAG]
+name = "Zagreb"
+home_transfer = { minutes = 45, cost = 8 }   # Pleso shuttle from the bus station (ZET bus 290 is ~€1.3)
+
+[hubs.LJU]
+name = "Ljubljana"
+stops = [{ flixbus = "Ljubljana", transfer_min = 50, transfer_cost = 5 }]
+
+[hubs.GRZ]
+name = "Graz"
+stops = [{ flixbus = "Graz", transfer_min = 30, transfer_cost = 3 }]
+
+[hubs.TRS]
+name = "Trieste"
+stops = [
+    { flixbus = "Trieste Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Trieste", transfer_min = 50, transfer_cost = 5 },
+]
+
+[hubs.VCE]
+name = "Venice Marco Polo"
+stops = [
+    { flixbus = "Venice Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Venice", transfer_min = 30, transfer_cost = 10 },
+]
+
+[hubs.TSF]
+name = "Treviso"
+stops = [
+    { flixbus = "Treviso Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Treviso", transfer_min = 25, transfer_cost = 2 },
+]
+
+[hubs.VIE]
+name = "Vienna"
+stops = [
+    { flixbus = "Vienna Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Vienna", transfer_min = 40, transfer_cost = 4.5 },
+]
+
+[hubs.BTS]
+name = "Bratislava"
+stops = [
+    { flixbus = "Bratislava Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Bratislava", transfer_min = 35, transfer_cost = 1.5 },
+]
+
+[hubs.BUD]
+name = "Budapest"
+stops = [
+    { flixbus = "Budapest Airport", transfer_min = 5, transfer_cost = 0 },
+    { flixbus = "Budapest", transfer_min = 60, transfer_cost = 6 },
+]
+
+[hubs.BEG]
+name = "Belgrade"
+stops = [{ flixbus = "Belgrade", transfer_min = 45, transfer_cost = 3 }]
