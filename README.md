@@ -91,6 +91,7 @@ Prices the cheapest trip to every upcoming event in a [BEST Calendar](https://gi
 - **How often:** an event is searched again when its prices are older than `--max-age-hours` (20) or its dates or airports changed. At most `--limit` (4) events are searched per run, stalest first, so a run stays short. Events beyond `--horizon-days` (180) wait.
 - **Failures:** if a search fails, the previous prices are kept with a `lastError` note. Past events are dropped.
 - **No-op runs:** if nothing changed, the file isn't rewritten, so there is nothing to commit.
+- **Times:** every `dep`/`arr` is local time where it happens. Flight steps also carry `minutes`, the real time in the air (from Kiwi; direct Ryanair/Wizz fares borrow it from Kiwi's flights on the same route), so a flight into another time zone isn't drawn longer or shorter than it is. It is `null` when no source knows it.
 
 ## Customise the airports
 
