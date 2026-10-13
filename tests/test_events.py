@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from dataclasses import replace
 from datetime import date, datetime, timedelta
 
 from conftest import bus, dt, flight
@@ -65,7 +66,7 @@ def _legs(config) -> dict[str, Leg]:
                    8, 45, timedelta(0), False)  # lands the day after the event starts
     out_early = Leg("out", zag, flight("ZAG", "ATH", "2026-11-05T10:00", "2026-11-05T12:00", 5), None, None,
                     8, 45, timedelta(0), False)  # a day early
-    back_bus = Leg("back", vce, flight("ATH", "VCE", "2026-11-09T20:00", "2026-11-09T21:30", 30),
+    back_bus = Leg("back", vce, replace(flight("ATH", "VCE", "2026-11-09T20:00", "2026-11-09T21:30", 30), minutes=150),
                    bus("Venice Airport", "Zagreb", "2026-11-10T03:00", "2026-11-10T07:00", 20),
                    vce.stops[0], 20, 5, timedelta(hours=5, minutes=30), True)
     back_early = Leg("back", zag, flight("ATH", "ZAG", "2026-11-08T10:00", "2026-11-08T12:00", 10), None, None,
@@ -99,6 +100,8 @@ def test_summarise_keeps_event_dates_and_adds_alternative(config):
     out_bus, out_flight = best["out"]["steps"]
     assert out_bus["dep"] == "2026-11-05T23:00" and out_bus["price"] == 15 and out_bus["transfer"] == {"minutes": 5, "price": 0}
     assert out_flight["from"] == "BUD" and out_flight["hop"] is False and out_flight["url"].startswith("https://")
+    assert out_flight["minutes"] is None  # real flight time only when a provider gave it
+    assert best["back"]["steps"][0]["minutes"] == 150  # 1h30 on the clocks, 2h30 in the air (time zones)
     assert best["out"]["airport"] == "BUD" and "before take-off" in best["out"]["wait"]
     assert not best["out"]["wait"].startswith("⏱")
 

@@ -29,7 +29,7 @@ from .planner import Query, combine
 TZ = ZoneInfo("Europe/Zagreb")
 SKIP_TAGS = {"deadline"}
 OPTIONS = 3  # trips kept for the event's own dates
-FORMAT = 2  # bump when the entry shape changes, so older entries are searched again
+FORMAT = 3  # bump when the entry shape changes, so older entries are searched again
 BusSearch = Callable[[str, str, date], Awaitable[list[BusRide]]]  # (from city, to city, day) → rides
 
 
@@ -102,7 +102,7 @@ def _flight(f, hop: bool = False) -> dict:
     return {
         "kind": "flight", "hop": hop, "from": f.origin, "to": f.destination,
         "fromName": f.origin_name, "toName": f.destination_name,
-        "dep": _t(f.departure), "arr": _t(f.arrival), "approxArrival": f.approx_arrival,
+        "dep": _t(f.departure), "arr": _t(f.arrival), "approxArrival": f.approx_arrival, "minutes": f.minutes,
         "price": f.price, "carriers": list(f.carriers), "via": list(f.route[1:-1]) if f.stops else [],
         "source": f.source, "url": f.booking_url,
     }

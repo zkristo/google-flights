@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from dataclasses import replace
 from datetime import date, datetime, timedelta
 
 import httpx
@@ -119,6 +120,7 @@ def test_wizz_fares_convert_currency_and_use_kiwi_duration(monkeypatch):
     assert nov9.price == pytest.approx(23.74, abs=0.01) and nov9.source == "wizz"
     assert nov9.arrival == datetime(2026, 11, 9, 8, 55) and not nov9.approx_arrival
     assert len(est) == 1 and est[0].approx_arrival
+    assert 120 < est[0].minutes < 150 and nov9.minutes is None  # estimate's flight time; exact ones come from Kiwi
     body = json.loads(tt.calls[0].request.content)
     assert body["flightList"][0] == {"departureStation": "BUD", "arrivalStation": "ATH", "from": "2026-11-08", "to": "2026-11-12"}
     # Wizz rejects follow-up requests that echo its verification cookie, so none may be sent
@@ -192,3 +194,13 @@ def test_direct_fares_only_queries_flown_routes_and_summarises_failures():
     out = asyncio.run(direct.improve([], {("BUD", "ATH"), ("VIE", "ATH"), ("ZAG", "ATH")}, NOV, 1))
     assert out == [fr]
     assert direct.summary() == ["Wizz Air direct prices unavailable for 1 route(s) (VIE→ATH); Kiwi prices used there."]
+
+
+def test_direct_only_fares_get_the_routes_real_flight_time_from_kiwi():
+    kiwi = replace(flight("BTS", "ATH", "2026-11-09T12:00", "2026-11-09T15:10", 60, codes=("A3",)), minutes=130)
+    fr = flight("BTS", "ATH", "2026-11-09T16:25", "2026-11-09T19:35", 41.19, num="", codes=("FR",), source="ryanair")
+    other = flight("VIE", "ATH", "2026-11-09T16:25", "2026-11-09T19:35", 41.19, num="", codes=("FR",), source="ryanair")
+    ra = _FakeAirline({"BTS": {"ATH"}, "VIE": {"ATH"}}, [fr, other])
+    out = asyncio.run(DirectFares(ra, None).improve([kiwi], {("BTS", "ATH"), ("VIE", "ATH")}, NOV, 1))
+    minutes = {(f.origin, f.departure.hour): f.minutes for f in out}
+    assert minutes == {("BTS", 12): 130, ("BTS", 16): 130, ("VIE", 16): None}  # VIE: no Kiwi flight to learn from

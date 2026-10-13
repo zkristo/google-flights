@@ -79,9 +79,12 @@ class DirectFares:
     async def improve(self, flights: list[Flight], pairs: set[tuple[str, str]], days: set[date], adults: int) -> list[Flight]:
         """Return ``flights`` merged with direct fares for every (origin, destination) in ``pairs``."""
         durations: dict[tuple[str, str], timedelta] = {}
+        air_minutes: dict[tuple[str, str], int] = {}  # real flight time per route, from Kiwi
         for f in flights:
             if f.stops == 0 and not f.approx_arrival:
                 durations.setdefault((f.origin, f.destination), f.arrival - f.departure)
+                if f.minutes is not None:
+                    air_minutes.setdefault((f.origin, f.destination), f.minutes)
         tasks = []
         for o, d in sorted(pairs):
             if len(o) != 3 or len(d) != 3 or o == d:
@@ -89,5 +92,7 @@ class DirectFares:
             tasks.append(self._ryanair(o, d, days, adults))
             tasks.append(self._wizz(o, d, days, adults, durations.get((o, d))))
         results = await asyncio.gather(*tasks)
-        direct = [f for batch in results for f in batch]
+        direct = [f if f.minutes is not None or (f.origin, f.destination) not in air_minutes
+                  else replace(f, minutes=air_minutes[(f.origin, f.destination)])
+                  for batch in results for f in batch]
         return merge(flights, direct)

@@ -27,6 +27,7 @@ def test_parse_kiwi_sse_fixture():
     assert cheapest.departure == datetime(2026, 11, 9, 20, 10)
     assert cheapest.carriers == ("Ryanair",) and cheapest.flight_numbers == ("FR5825",)
     assert cheapest.booking_url.startswith("https://kiwi.com/")
+    assert cheapest.minutes == 130  # 2h10 in the air, though local clocks say 20:10 → 23:20 (Athens is an hour ahead)
 
 
 def test_parse_kiwi_errors():

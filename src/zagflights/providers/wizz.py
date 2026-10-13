@@ -160,5 +160,6 @@ class WizzClient(HttpClient):
                 departure=dep, arrival=dep + duration, price=round(eur * adults, 2), carriers=("Wizz Air",),
                 flight_numbers=(), stops=0, booking_url=booking_url(o, d, dep.date(), adults), route=(o, d),
                 carrier_codes=("W6",), source="wizz", approx_arrival=approx,
+                minutes=round(duration.total_seconds() / 60) if approx else None,
             ))
         return flights

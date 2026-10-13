@@ -30,6 +30,7 @@ class Flight:
     carrier_codes: tuple[str, ...] = ()
     source: str = "kiwi"  # where the price comes from: "kiwi", "ryanair" or "wizz"
     approx_arrival: bool = False  # arrival estimated (Wizz's timetable has no arrival times)
+    minutes: int | None = None  # real take-off → landing time incl. layovers (local times can differ by time zone)
 
     @property
     def key(self) -> tuple:

@@ -80,6 +80,7 @@ def itinerary_to_flight(it: dict) -> Flight:
         booking_url=it.get("bookingUrl", ""),
         route=tuple(leg.get("route") or ()),
         carrier_codes=tuple(codes),
+        minutes=round(leg["durationSeconds"] / 60) if isinstance(leg.get("durationSeconds"), (int, float)) else None,
     )
 
 
